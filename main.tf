@@ -1,3 +1,13 @@
+terraform {
+  cloud {
+    organization = "raviqqe"
+
+    workspaces {
+      name = "infrastructure"
+    }
+  }
+}
+
 variable "record_ttl" {
   default = "300"
 }
