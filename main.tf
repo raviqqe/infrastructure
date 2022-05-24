@@ -19,6 +19,7 @@ provider "aws" {
 provider "google" {
   project = "dev-server-199623"
   region  = "us-west1"
+  zone    = "us-west1-b"
 }
 
 resource "aws_route53_zone" "cloe_org" {
