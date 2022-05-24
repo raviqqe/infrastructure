@@ -16,6 +16,18 @@ provider "aws" {
   region = "us-west-2"
 }
 
+resource "aws_route53_zone" "cloe_org" {
+  name = "cloe-lang.org"
+}
+
+resource "aws_route53_zone" "code2d_net" {
+  name = "code2d.net"
+}
+
+resource "aws_route53_zone" "code2d_org" {
+  name = "code2d.org"
+}
+
 resource "aws_route53_zone" "ein_com" {
   name = "ein-lang.com"
 }
@@ -38,4 +50,12 @@ resource "aws_route53_zone" "pen_com" {
 
 resource "aws_route53_zone" "pen_org" {
   name = "pen-lang.org"
+}
+
+resource "aws_route53_zone" "raviqqe_com" {
+  name = "raviqqe.com"
+}
+
+resource "aws_route53_zone" "ytoyama_com" {
+  name = "ytoyama.com"
 }
