@@ -7,8 +7,18 @@ data "aws_ami" "ubuntu" {
   }
 
   filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
     name   = "root-device-type"
     values = ["ebs"]
+  }
+
+  filter {
+    name   = "block-device-mapping.volume-type"
+    values = ["gp2"]
   }
 
   filter {
