@@ -8,10 +8,6 @@ terraform {
   }
 }
 
-variable "record_ttl" {
-  default = "300"
-}
-
 provider "aws" {
   region = "us-west-2"
 }

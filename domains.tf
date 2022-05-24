@@ -1,3 +1,7 @@
+variable "record_ttl" {
+  default = "300"
+}
+
 resource "aws_route53_zone" "cloe_org" {
   name = "cloe-lang.org"
 }
