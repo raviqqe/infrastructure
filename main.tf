@@ -16,6 +16,14 @@ provider "aws" {
   region = "us-west-2"
 }
 
+resource "aws_route53_zone" "code2d_net" {
+  name = "code2d.net"
+}
+
+resource "aws_route53_zone" "code2d_org" {
+  name = "code2d.org"
+}
+
 resource "aws_route53_zone" "ein_com" {
   name = "ein-lang.com"
 }
