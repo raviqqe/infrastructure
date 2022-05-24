@@ -43,3 +43,7 @@ resource "aws_route53_zone" "pen_org" {
 resource "aws_route53_zone" "raviqqe_com" {
   name = "raviqqe.com"
 }
+
+resource "aws_route53_zone" "ytoyama_com" {
+  name = "ytoyama.com"
+}
