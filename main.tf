@@ -16,6 +16,10 @@ provider "aws" {
   region = "us-west-2"
 }
 
+resource "aws_route53_zone" "cloe_org" {
+  name = "cloe-lang.org"
+}
+
 resource "aws_route53_zone" "code2d_net" {
   name = "code2d.net"
 }
