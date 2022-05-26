@@ -33,19 +33,24 @@ resource "aws_instance" "argon" {
   instance_type = "t2.micro"
 }
 
-# TODO
-# resource "google_compute_instance" "xenon" {
-#   name         = "xenon"
-#   machine_type = "e2-highcpu-4"
-#   zone         = "us-west1-b"
+resource "google_compute_instance" "xenon" {
+  name         = "xenon"
+  machine_type = "e2-highcpu-4"
+  tags         = ["http-server"]
+  metadata = {
+    ssh-keys = "raviqqe:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
+  }
 
-#   boot_disk {
-#     initialize_params {
-#       image = "ubuntu-20"
-#     }
-#   }
+  boot_disk {
+    initialize_params {
+      size = 256
+      type = "pd-balanced"
+    }
+  }
 
-#   network_interface {
-#     network = "default"
-#   }
-# }
+  network_interface {
+    network = "default"
+
+    access_config {}
+  }
+}
