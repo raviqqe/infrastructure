@@ -34,9 +34,10 @@ resource "aws_instance" "argon" {
 }
 
 resource "google_compute_instance" "xenon" {
-  name         = "xenon"
-  machine_type = "e2-highcpu-4"
-  tags         = ["http-server"]
+  name                      = "xenon"
+  machine_type              = "e2-highcpu-4"
+  allow_stopping_for_update = true
+  tags                      = ["http-server"]
   metadata = {
     ssh-keys = "raviqqe:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
   }
