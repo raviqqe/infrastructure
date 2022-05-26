@@ -1,6 +1,6 @@
 # Infrastructure
 
-My Infrastructure configuration in Terraform
+My infrastructure configuration in Terraform
 
 ## License
 
