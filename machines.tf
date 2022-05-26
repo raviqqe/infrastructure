@@ -40,7 +40,8 @@ resource "google_compute_instance" "xenon" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-20"
+      size = 256
+      type = "pb-balanced"
     }
   }
 
