@@ -38,6 +38,9 @@ resource "google_compute_instance" "xenon" {
   machine_type = "e2-highcpu-4"
   zone         = "us-west1-b"
   tags         = ["http-server"]
+  metadata = {
+    ssh-keys = "raviqqe:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
+  }
 
   boot_disk {
     initialize_params {
@@ -50,9 +53,5 @@ resource "google_compute_instance" "xenon" {
     network = "default"
 
     access_config {}
-  }
-
-  metadata {
-    ssh-keys = "raviqqe:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
   }
 }
