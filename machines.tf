@@ -41,7 +41,7 @@ resource "google_compute_instance" "xenon" {
   boot_disk {
     initialize_params {
       size = 256
-      type = "pb-balanced"
+      type = "pd-balanced"
     }
   }
 
