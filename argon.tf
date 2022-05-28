@@ -38,14 +38,14 @@ resource "aws_security_group_rule" "ingress" {
   security_group_id = aws_security_group.default.id
   type              = "ingress"
   protocol          = "tcp"
-  from_port         = 0
+  from_port         = 22
   to_port           = 22
 }
 
 resource "aws_security_group_rule" "egress" {
   security_group_id = aws_security_group.default.id
   type              = "egress"
-  protocol          = "tcp"
+  protocol          = "-1"
   from_port         = 0
   to_port           = 0
 }
