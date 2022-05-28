@@ -39,6 +39,7 @@ resource "aws_key_pair" "neon" {
 resource "aws_instance" "argon" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
+  key_name      = aws_key_pair.neon.key_name
 }
 
 resource "google_compute_instance" "xenon" {
