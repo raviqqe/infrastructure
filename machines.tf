@@ -40,6 +40,32 @@ resource "aws_key_pair" "neon" {
   public_key = var.ssh_public_key
 }
 
+resource "aws_security_group" "main" {
+  egress = [
+    {
+      cidr_blocks     = ["0.0.0.0/0"]
+      from_port       = 0
+      protocol        = "-1"
+      security_groups = []
+      self            = false
+      to_port         = 0
+    }
+  ]
+  ingress = [
+    {
+      cidr_blocks      = ["0.0.0.0/0"]
+      description      = ""
+      from_port        = 22
+      ipv6_cidr_blocks = []
+      prefix_list_ids  = []
+      protocol         = "tcp"
+      security_groups  = []
+      self             = false
+      to_port          = 22
+    }
+  ]
+}
+
 resource "aws_instance" "argon" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
