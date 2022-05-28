@@ -19,6 +19,12 @@ resource "google_compute_instance" "xenon" {
 
     access_config {}
   }
+
+  scheduling {
+    provisioning_model = "SPOT"
+    preemptible        = true
+    automatic_restart  = false
+  }
 }
 
 output "xenon_ip_address" {
