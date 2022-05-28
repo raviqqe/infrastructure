@@ -7,7 +7,7 @@ resource "google_compute_network" "default" {
 }
 
 resource "google_compute_firewall" "mosh" {
-  name          = "ssh"
+  name          = "mosh"
   network       = google_compute_network.default.name
   source_ranges = var.default_source_ranges
 
@@ -25,7 +25,7 @@ resource "google_compute_firewall" "mosh" {
 }
 
 resource "google_compute_firewall" "http" {
-  name          = "ssh"
+  name          = "http"
   network       = google_compute_network.default.name
   source_ranges = var.default_source_ranges
 
