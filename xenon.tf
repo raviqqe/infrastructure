@@ -22,6 +22,8 @@ resource "google_compute_instance" "xenon" {
 
   scheduling {
     provisioning_model = "SPOT"
+    preemptible        = true
+    automatic_restart  = false
   }
 }
 
