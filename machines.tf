@@ -1,3 +1,7 @@
+variable "ssh_public_key" {
+  default = "raviqqe:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"] # Canonical
@@ -28,9 +32,14 @@ data "aws_ami" "ubuntu" {
   }
 }
 
+resource "aws_key_pair" "neon" {
+  public_key = var.ssh_public_key
+}
+
 resource "aws_instance" "argon" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
+  key_name      = aws_key_pair.neon.key_name
 }
 
 resource "google_compute_instance" "xenon" {
@@ -39,7 +48,7 @@ resource "google_compute_instance" "xenon" {
   allow_stopping_for_update = true
   tags                      = ["http-server"]
   metadata = {
-    ssh-keys = "raviqqe:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
+    ssh-keys = var.ssh_public_key
   }
 
   boot_disk {
