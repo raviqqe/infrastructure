@@ -1,11 +1,3 @@
-variable "ssh_user" {
-  default = "raviqqe"
-}
-
-variable "ssh_public_key" {
-  default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
-}
-
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"] # Canonical
@@ -43,12 +35,14 @@ resource "aws_key_pair" "neon" {
 resource "aws_security_group" "main" {
   egress = [
     {
-      cidr_blocks     = ["0.0.0.0/0"]
-      from_port       = 0
-      protocol        = "-1"
-      security_groups = []
-      self            = false
-      to_port         = 0
+      cidr_blocks      = ["0.0.0.0/0"]
+      from_port        = 0
+      ipv6_cidr_blocks = []
+      prefix_list_ids  = []
+      protocol         = "-1"
+      security_groups  = []
+      self             = false
+      to_port          = 0
     }
   ]
   ingress = [
