@@ -1,6 +1,10 @@
+variable "canonical_owner_id" {
+  default = "099720109477"
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"] # Canonical
+  owners      = [var.canonical_owner_id]
 
   filter {
     name   = "creation-date"
