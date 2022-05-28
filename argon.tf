@@ -91,5 +91,5 @@ resource "aws_spot_instance_request" "argon" {
 }
 
 output "argon_domain_name" {
-  value = aws_instance.argon.public_dns
+  value = aws_spot_instance_request.argon.public_dns
 }
