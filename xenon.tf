@@ -6,19 +6,6 @@ resource "google_compute_network" "default" {
   name = "default"
 }
 
-resource "google_compute_firewall" "ssh" {
-  name          = "ssh"
-  network       = google_compute_network.default.name
-  source_ranges = var.default_source_ranges
-
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-
-  target_tags = ["ssh"]
-}
-
 resource "google_compute_firewall" "mosh" {
   name          = "ssh"
   network       = google_compute_network.default.name
@@ -54,7 +41,7 @@ resource "google_compute_instance" "xenon" {
   name                      = "xenon"
   machine_type              = "e2-highcpu-4"
   allow_stopping_for_update = true
-  tags                      = ["http", "http-server", "mosh", "ssh"]
+  tags                      = ["http", "http-server", "mosh"]
   metadata = {
     ssh-keys = join(":", [var.ssh_user, var.ssh_public_key])
   }
