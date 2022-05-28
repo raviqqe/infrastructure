@@ -1,5 +1,9 @@
+variable "ssh_user" {
+  default = "raviqqe"
+}
+
 variable "ssh_public_key" {
-  default = "raviqqe:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
+  default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM6+38+Cid9vR4T44jZu5cbY5YatdXS9Sh0vnn7ZDimQ raviqqe@gmail.com"
 }
 
 data "aws_ami" "ubuntu" {
@@ -48,7 +52,7 @@ resource "google_compute_instance" "xenon" {
   allow_stopping_for_update = true
   tags                      = ["http-server"]
   metadata = {
-    ssh-keys = var.ssh_public_key
+    ssh-keys = join(":", [var.ssh_user, var.ssh_public_key])
   }
 
   boot_disk {
@@ -63,4 +67,12 @@ resource "google_compute_instance" "xenon" {
 
     access_config {}
   }
+}
+
+output "argon_domain_name" {
+  value = aws_instance.argon.public_dns
+}
+
+output "xenon_ip_address" {
+  value = google_compute_instance.xenon.network_interface.0.access_config.0.nat_ip
 }
