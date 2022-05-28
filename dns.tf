@@ -27,7 +27,7 @@ resource "aws_route53_record" "tasks" {
   name    = "tasks.code2d.org"
   type    = "A"
   ttl     = var.default_record_ttl
-  records = [aws_eip.lb.public_ip]
+  records = var.firebase_records
 }
 
 resource "aws_route53_record" "notes" {
@@ -35,7 +35,7 @@ resource "aws_route53_record" "notes" {
   name    = "notes.code2d.org"
   type    = "A"
   ttl     = var.default_record_ttl
-  records = [aws_eip.lb.public_ip]
+  records = var.firebase_records
 }
 
 resource "aws_route53_record" "pomodoro" {
@@ -43,7 +43,7 @@ resource "aws_route53_record" "pomodoro" {
   name    = "pomodoro.code2d.org"
   type    = "A"
   ttl     = var.default_record_ttl
-  records = [aws_eip.lb.public_ip]
+  records = var.firebase_records
 }
 
 resource "aws_route53_zone" "ein_com" {
