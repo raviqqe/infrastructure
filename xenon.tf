@@ -54,7 +54,7 @@ resource "google_compute_instance" "xenon" {
   name                      = "xenon"
   machine_type              = "e2-highcpu-4"
   allow_stopping_for_update = true
-  tags                      = ["http", "http-server", "mosh", "ssh"]
+  tags                      = ["http", "mosh", "ssh"]
   metadata = {
     ssh-keys = join(":", [var.ssh_user, var.ssh_public_key])
   }
