@@ -88,6 +88,7 @@ resource "aws_spot_instance_request" "argon" {
   instance_type          = "t4g.micro"
   key_name               = aws_key_pair.neon.key_name
   vpc_security_group_ids = [aws_security_group.default.id]
+  wait_for_fulfillment   = true
 }
 
 output "argon_domain_name" {
