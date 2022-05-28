@@ -32,7 +32,7 @@ resource "aws_key_pair" "neon" {
   public_key = var.ssh_public_key
 }
 
-resource "aws_security_group" "main" {
+resource "aws_security_group" "default" {
   egress = [
     {
       cidr_blocks      = ["0.0.0.0/0"]
@@ -61,9 +61,10 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_instance" "argon" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t2.micro"
-  key_name      = aws_key_pair.neon.key_name
+  ami             = data.aws_ami.ubuntu.id
+  instance_type   = "t2.micro"
+  key_name        = aws_key_pair.neon.key_name
+  security_groups = [aws_security_group.default.id]
 }
 
 resource "google_compute_instance" "xenon" {
