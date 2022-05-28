@@ -6,17 +6,17 @@ resource "google_compute_network" "main" {
   name = "main"
 }
 
-resource "google_compute_firewall" "ssh" {
-  name          = "ssh"
+resource "google_compute_firewall" "http" {
+  name          = "http"
   network       = google_compute_network.main.name
   source_ranges = var.default_source_ranges
 
   allow {
     protocol = "tcp"
-    ports    = ["22"]
+    ports    = ["8080"]
   }
 
-  target_tags = ["ssh"]
+  target_tags = ["http"]
 }
 
 resource "google_compute_firewall" "mosh" {
@@ -37,17 +37,17 @@ resource "google_compute_firewall" "mosh" {
   target_tags = ["mosh"]
 }
 
-resource "google_compute_firewall" "http" {
-  name          = "http"
+resource "google_compute_firewall" "ssh" {
+  name          = "ssh"
   network       = google_compute_network.main.name
   source_ranges = var.default_source_ranges
 
   allow {
     protocol = "tcp"
-    ports    = ["8080"]
+    ports    = ["22"]
   }
 
-  target_tags = ["http"]
+  target_tags = ["ssh"]
 }
 
 resource "google_compute_instance" "xenon" {
