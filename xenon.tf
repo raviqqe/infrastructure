@@ -8,7 +8,7 @@ resource "google_compute_network" "main" {
 
 resource "google_compute_firewall" "ssh" {
   name          = "ssh"
-  network       = google_compute_network.default.name
+  network       = google_compute_network.main.name
   source_ranges = var.default_source_ranges
 
   allow {
@@ -21,7 +21,7 @@ resource "google_compute_firewall" "ssh" {
 
 resource "google_compute_firewall" "mosh" {
   name          = "mosh"
-  network       = google_compute_network.default.name
+  network       = google_compute_network.main.name
   source_ranges = var.default_source_ranges
 
   allow {
@@ -39,7 +39,7 @@ resource "google_compute_firewall" "mosh" {
 
 resource "google_compute_firewall" "http" {
   name          = "http"
-  network       = google_compute_network.default.name
+  network       = google_compute_network.main.name
   source_ranges = var.default_source_ranges
 
   allow {
@@ -67,7 +67,7 @@ resource "google_compute_instance" "xenon" {
   }
 
   network_interface {
-    network = google_compute_network.default.name
+    network = google_compute_network.main.name
 
     access_config {}
   }
