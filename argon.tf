@@ -83,7 +83,7 @@ resource "aws_security_group_rule" "egress" {
   cidr_blocks       = var.default_cidr_blocks
 }
 
-resource "aws_instance" "argon" {
+resource "aws_spot_instance_request" "argon" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t4g.micro"
   key_name               = aws_key_pair.neon.key_name
