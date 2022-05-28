@@ -6,7 +6,7 @@ data "google_compute_network" "default" {
   name = "default"
 }
 
-data "google_compute_network" "main" {
+resource "google_compute_network" "main" {
   name = "main"
 }
 
