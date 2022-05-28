@@ -2,8 +2,8 @@ variable "default_source_ranges" {
   default = ["0.0.0.0/0"]
 }
 
-resource "google_compute_network" "default" {
-  name = "default"
+resource "google_compute_network" "main" {
+  name = "main"
 }
 
 resource "google_compute_firewall" "mosh" {
