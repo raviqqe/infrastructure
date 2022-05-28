@@ -84,10 +84,10 @@ resource "aws_security_group_rule" "egress" {
 }
 
 resource "aws_instance" "argon" {
-  ami             = data.aws_ami.ubuntu.id
-  instance_type   = "t2.micro"
-  key_name        = aws_key_pair.neon.key_name
-  security_groups = [aws_security_group.default.id]
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
+  key_name               = aws_key_pair.neon.key_name
+  vpc_security_group_ids = [aws_security_group.default.id]
 }
 
 output "argon_domain_name" {
