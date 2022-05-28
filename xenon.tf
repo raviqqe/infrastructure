@@ -6,8 +6,48 @@ data "google_compute_network" "default" {
   name = "default"
 }
 
-resource "google_compute_network" "main" {
-  name = "main"
+resource "google_compute_firewall" "http" {
+  name          = "http"
+  network       = data.google_compute_network.default.name
+  source_ranges = var.default_source_ranges
+
+  allow {
+    protocol = "tcp"
+    ports    = ["8080"]
+  }
+
+  target_tags = ["http"]
+}
+
+resource "google_compute_firewall" "mosh" {
+  name          = "mosh"
+  network       = data.google_compute_network.default.name
+  source_ranges = var.default_source_ranges
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = ["60000-61000"]
+  }
+
+  target_tags = ["mosh"]
+}
+
+resource "google_compute_firewall" "ssh" {
+  name          = "ssh"
+  network       = data.google_compute_network.default.name
+  source_ranges = var.default_source_ranges
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  target_tags = ["ssh"]
 }
 
 resource "google_compute_instance" "xenon" {
