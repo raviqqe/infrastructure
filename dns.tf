@@ -10,6 +10,10 @@ variable "record_ttl" {
   default = "300"
 }
 
+variable "pen_github_domain" {
+  default = "pen-lang.github.io"
+}
+
 resource "aws_route53_zone" "cloe_org" {
   name = "cloe-lang.org"
 }
@@ -68,6 +72,22 @@ resource "aws_route53_zone" "pen_com" {
 
 resource "aws_route53_zone" "pen_org" {
   name = "pen-lang.org"
+}
+
+resource "aws_route53_record" "doc_pen_org" {
+  zone_id = aws_route53_zone.pen_org.zone_id
+  name    = "doc.pen-lang.org"
+  type    = "CNAME"
+  ttl     = var.default_record_ttl
+  records = [var.pen_github_domain]
+}
+
+resource "aws_route53_record" "www_pen_org" {
+  zone_id = aws_route53_zone.pen_org.zone_id
+  name    = "www.pen-lang.org"
+  type    = "CNAME"
+  ttl     = var.default_record_ttl
+  records = [var.pen_github_domain]
 }
 
 resource "aws_route53_zone" "raviqqe_com" {
