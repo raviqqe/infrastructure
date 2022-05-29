@@ -23,6 +23,14 @@ resource "aws_route53_zone" "cloe_org" {
   name = "cloe-lang.org"
 }
 
+resource "aws_route53_record" "cloe_org" {
+  zone_id = aws_route53_zone.cloe_org.zone_id
+  name    = "cloe-lang.org"
+  type    = "A"
+  ttl     = var.record_ttl
+  records = var.github_io_records
+}
+
 resource "aws_route53_zone" "code2d_net" {
   name = "code2d.net"
 }
