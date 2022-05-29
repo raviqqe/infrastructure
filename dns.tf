@@ -71,6 +71,14 @@ resource "aws_route53_zone" "ein_org" {
   name = "ein-lang.org"
 }
 
+resource "aws_route53_record" "ein_org" {
+  zone_id = aws_route53_zone.ein_org.zone_id
+  name    = "ein-lang.org"
+  type    = "A"
+  ttl     = var.record_ttl
+  records = var.github_io_records
+}
+
 resource "aws_route53_zone" "flame_com" {
   name = "flame-lang.com"
 }
