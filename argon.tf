@@ -1,14 +1,11 @@
-variable "canonical_owner_id" {
-  default = "099720109477"
-}
-
-variable "default_cidr_blocks" {
-  default = ["0.0.0.0/0"]
+locals {
+  canonical_owner_id  = "099720109477"
+  default_cidr_blocks = ["0.0.0.0/0"]
 }
 
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = [var.canonical_owner_id]
+  owners      = [local.canonical_owner_id]
 
   filter {
     name   = "creation-date"
@@ -53,7 +50,7 @@ resource "aws_security_group_rule" "ssh" {
   protocol          = "tcp"
   from_port         = 22
   to_port           = 22
-  cidr_blocks       = var.default_cidr_blocks
+  cidr_blocks       = local.default_cidr_blocks
 }
 
 resource "aws_security_group_rule" "mosh" {
@@ -62,7 +59,7 @@ resource "aws_security_group_rule" "mosh" {
   protocol          = "udp"
   from_port         = 60000
   to_port           = 61000
-  cidr_blocks       = var.default_cidr_blocks
+  cidr_blocks       = local.default_cidr_blocks
 }
 
 resource "aws_security_group_rule" "http" {
@@ -71,7 +68,7 @@ resource "aws_security_group_rule" "http" {
   protocol          = "tcp"
   from_port         = 8080
   to_port           = 8080
-  cidr_blocks       = var.default_cidr_blocks
+  cidr_blocks       = local.default_cidr_blocks
 }
 
 resource "aws_security_group_rule" "egress" {
@@ -80,7 +77,7 @@ resource "aws_security_group_rule" "egress" {
   protocol          = "-1"
   from_port         = 0
   to_port           = 0
-  cidr_blocks       = var.default_cidr_blocks
+  cidr_blocks       = local.default_cidr_blocks
 }
 
 resource "aws_spot_instance_request" "argon" {
