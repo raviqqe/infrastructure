@@ -82,7 +82,7 @@ resource "aws_route53_record" "ein_org" {
   name    = "ein-lang.org"
   type    = "A"
   ttl     = local.record_ttl
-  records = local.github_io_records
+  records = local.github_io.records
 }
 
 resource "aws_route53_zone" "flame_com" {
@@ -106,7 +106,7 @@ resource "aws_route53_record" "pen_org" {
   name    = "pen-lang.org"
   type    = "A"
   ttl     = local.record_ttl
-  records = local.github_io_records
+  records = local.github_io.records
 }
 
 resource "aws_route53_record" "doc_pen_org" {

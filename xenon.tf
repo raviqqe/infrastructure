@@ -1,5 +1,5 @@
-variable "default_source_ranges" {
-  default = ["0.0.0.0/0"]
+locals {
+  default_source_ranges = ["0.0.0.0/0"]
 }
 
 data "google_compute_network" "default" {
@@ -9,7 +9,7 @@ data "google_compute_network" "default" {
 resource "google_compute_firewall" "http" {
   name          = "http"
   network       = data.google_compute_network.default.name
-  source_ranges = var.default_source_ranges
+  source_ranges = local.default_source_ranges
 
   allow {
     protocol = "tcp"
@@ -22,7 +22,7 @@ resource "google_compute_firewall" "http" {
 resource "google_compute_firewall" "mosh" {
   name          = "mosh"
   network       = data.google_compute_network.default.name
-  source_ranges = var.default_source_ranges
+  source_ranges = local.default_source_ranges
 
   allow {
     protocol = "tcp"
@@ -40,7 +40,7 @@ resource "google_compute_firewall" "mosh" {
 resource "google_compute_firewall" "ssh" {
   name          = "ssh"
   network       = data.google_compute_network.default.name
-  source_ranges = var.default_source_ranges
+  source_ranges = local.default_source_ranges
 
   allow {
     protocol = "tcp"
