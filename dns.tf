@@ -3,16 +3,18 @@ locals {
 
   firebase_records = ["151.101.1.195", "151.101.65.195"]
 
-  github_io_domain = "github.io"
-  github_io_records = [
-    "185.199.108.153",
-    "185.199.109.153",
-    "185.199.110.153",
-    "185.199.111.153"
-  ]
+  github_io = {
+    domain = "github.io"
+    records = [
+      "185.199.108.153",
+      "185.199.109.153",
+      "185.199.110.153",
+      "185.199.111.153"
+    ]
+  }
 
-  cloe_github_domain = join(".", ["cloe-lang", local.github_io_domain])
-  pen_github_domain  = join(".", ["pen-lang", local.github_io_domain])
+  cloe_github_domain = join(".", ["cloe-lang", local.github_io.domain])
+  pen_github_domain  = join(".", ["pen-lang", local.github_io.domain])
 }
 
 resource "aws_route53_zone" "cloe_org" {
@@ -24,7 +26,7 @@ resource "aws_route53_record" "cloe_org" {
   name    = "cloe-lang.org"
   type    = "A"
   ttl     = local.record_ttl
-  records = local.github_io_records
+  records = local.github_io.records
 }
 
 resource "aws_route53_record" "www_cloe_org" {
