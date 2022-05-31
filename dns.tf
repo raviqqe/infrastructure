@@ -15,8 +15,16 @@ variable "github_io_records" {
   ]
 }
 
+variable "github_io_domain" {
+  default = "github.io"
+}
+
 variable "pen_github_domain" {
-  default = "pen-lang.github.io"
+  default = "pen-lang.${var.github_io_domain}"
+}
+
+variable "cloe_github_domain" {
+  default = "cloe-lang.${var.github_io_domain}"
 }
 
 resource "aws_route53_zone" "cloe_org" {
@@ -29,6 +37,14 @@ resource "aws_route53_record" "cloe_org" {
   type    = "A"
   ttl     = var.record_ttl
   records = var.github_io_records
+}
+
+resource "aws_route53_record" "www_cloe_org" {
+  zone_id = aws_route53_zone.cloe_org.zone_id
+  name    = "www.cloe-lang.org"
+  type    = "CNAME"
+  ttl     = var.record_ttl
+  records = [var.cloe_github_domain]
 }
 
 resource "aws_route53_zone" "code2d_net" {
