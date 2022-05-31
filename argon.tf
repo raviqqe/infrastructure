@@ -42,7 +42,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_key_pair" "neon" {
-  public_key = var.ssh_public_key
+  public_key = local.ssh.public_key
 }
 
 resource "aws_security_group" "default" {}

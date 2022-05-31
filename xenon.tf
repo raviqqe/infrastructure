@@ -56,7 +56,7 @@ resource "google_compute_instance" "xenon" {
   allow_stopping_for_update = true
   tags                      = ["http", "mosh", "ssh"]
   metadata = {
-    ssh-keys = join(":", [var.ssh_user, var.ssh_public_key])
+    ssh-keys = join(":", [local.ssh.user, local.ssh.public_key])
   }
 
   boot_disk {
