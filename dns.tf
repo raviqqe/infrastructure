@@ -1,22 +1,20 @@
-variable "record_ttl" {
-  default = 300
-}
+locals {
+  record_ttl = 300
 
-variable "firebase_records" {
-  default = ["151.101.1.195", "151.101.65.195"]
-}
+  firebase_records = ["151.101.1.195", "151.101.65.195"]
 
-variable "github_io_records" {
-  default = [
-    "185.199.108.153",
-    "185.199.109.153",
-    "185.199.110.153",
-    "185.199.111.153"
-  ]
-}
+  github_io = {
+    domain = "github.io"
+    records = [
+      "185.199.108.153",
+      "185.199.109.153",
+      "185.199.110.153",
+      "185.199.111.153"
+    ]
+  }
 
-variable "pen_github_domain" {
-  default = "pen-lang.github.io"
+  cloe_github_domain = join(".", ["cloe-lang", local.github_io.domain])
+  pen_github_domain  = join(".", ["pen-lang", local.github_io.domain])
 }
 
 resource "aws_route53_zone" "cloe_org" {
@@ -27,8 +25,16 @@ resource "aws_route53_record" "cloe_org" {
   zone_id = aws_route53_zone.cloe_org.zone_id
   name    = "cloe-lang.org"
   type    = "A"
-  ttl     = var.record_ttl
-  records = var.github_io_records
+  ttl     = local.record_ttl
+  records = local.github_io.records
+}
+
+resource "aws_route53_record" "www_cloe_org" {
+  zone_id = aws_route53_zone.cloe_org.zone_id
+  name    = "www.cloe-lang.org"
+  type    = "CNAME"
+  ttl     = local.record_ttl
+  records = [local.cloe_github_domain]
 }
 
 resource "aws_route53_zone" "code2d_net" {
@@ -43,24 +49,24 @@ resource "aws_route53_record" "tasks" {
   zone_id = aws_route53_zone.code2d_org.zone_id
   name    = "tasks.code2d.org"
   type    = "A"
-  ttl     = var.record_ttl
-  records = var.firebase_records
+  ttl     = local.record_ttl
+  records = local.firebase_records
 }
 
 resource "aws_route53_record" "notes" {
   zone_id = aws_route53_zone.code2d_org.zone_id
   name    = "notes.code2d.org"
   type    = "A"
-  ttl     = var.record_ttl
-  records = var.firebase_records
+  ttl     = local.record_ttl
+  records = local.firebase_records
 }
 
 resource "aws_route53_record" "pomodoro" {
   zone_id = aws_route53_zone.code2d_org.zone_id
   name    = "pomodoro.code2d.org"
   type    = "A"
-  ttl     = var.record_ttl
-  records = var.firebase_records
+  ttl     = local.record_ttl
+  records = local.firebase_records
 }
 
 resource "aws_route53_zone" "ein_com" {
@@ -75,8 +81,8 @@ resource "aws_route53_record" "ein_org" {
   zone_id = aws_route53_zone.ein_org.zone_id
   name    = "ein-lang.org"
   type    = "A"
-  ttl     = var.record_ttl
-  records = var.github_io_records
+  ttl     = local.record_ttl
+  records = local.github_io.records
 }
 
 resource "aws_route53_zone" "flame_com" {
@@ -99,24 +105,24 @@ resource "aws_route53_record" "pen_org" {
   zone_id = aws_route53_zone.pen_org.zone_id
   name    = "pen-lang.org"
   type    = "A"
-  ttl     = var.record_ttl
-  records = var.github_io_records
+  ttl     = local.record_ttl
+  records = local.github_io.records
 }
 
 resource "aws_route53_record" "doc_pen_org" {
   zone_id = aws_route53_zone.pen_org.zone_id
   name    = "doc.pen-lang.org"
   type    = "CNAME"
-  ttl     = var.record_ttl
-  records = [var.pen_github_domain]
+  ttl     = local.record_ttl
+  records = [local.pen_github_domain]
 }
 
 resource "aws_route53_record" "www_pen_org" {
   zone_id = aws_route53_zone.pen_org.zone_id
   name    = "www.pen-lang.org"
   type    = "CNAME"
-  ttl     = var.record_ttl
-  records = [var.pen_github_domain]
+  ttl     = local.record_ttl
+  records = [local.pen_github_domain]
 }
 
 resource "aws_route53_zone" "raviqqe_com" {
