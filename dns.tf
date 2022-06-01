@@ -21,19 +21,6 @@ resource "aws_route53_zone" "cloe_org" {
   name = "cloe-lang.org"
 }
 
-resource "aws_route53domains_registered_domain" "cloe_org" {
-  domain_name = aws_route53_zone.cloe_org.name
-
-
-  dynamic "name_server" {
-    for_each = toset(aws_route53_zone.cloe_org.name_servers)
-
-    content {
-      name = name_server.value
-    }
-  }
-}
-
 resource "aws_route53_record" "cloe_org" {
   zone_id = aws_route53_zone.cloe_org.zone_id
   name    = "cloe-lang.org"
