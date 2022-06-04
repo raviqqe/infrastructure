@@ -88,6 +88,10 @@ resource "aws_spot_instance_request" "argon" {
   wait_for_fulfillment   = true
 }
 
+resource "aws_eip" "argon" {
+  instance = aws_spot_instance_request.argon.id
+}
+
 output "argon_domain_name" {
   value = aws_spot_instance_request.argon.public_dns
 }
