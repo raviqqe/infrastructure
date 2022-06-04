@@ -84,7 +84,3 @@ resource "google_compute_instance" "xenon" {
     automatic_restart  = false
   }
 }
-
-output "xenon_ip_address" {
-  value = google_compute_instance.xenon.network_interface.0.access_config.0.nat_ip
-}
