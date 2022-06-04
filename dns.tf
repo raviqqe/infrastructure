@@ -142,7 +142,7 @@ resource "aws_route53_record" "xenon_raviqqe_com" {
   name    = "xenon.raviqqe.com"
   type    = "A"
   ttl     = local.record_ttl
-  records = [google_compute_address.xenon.address]
+  records = [google_compute_address.xenon.public_ip]
 }
 
 resource "aws_route53_zone" "ytoyama_com" {
