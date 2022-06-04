@@ -129,6 +129,14 @@ resource "aws_route53_zone" "raviqqe_com" {
   name = "raviqqe.com"
 }
 
+resource "aws_route53_record" "argon_raviqqe_com" {
+  zone_id = aws_route53_zone.raviqqe_com.zone_id
+  name    = "argon.raviqqe.com"
+  type    = "A"
+  ttl     = local.record_ttl
+  records = [aws_eip.argon.address]
+}
+
 resource "aws_route53_record" "xenon_raviqqe_com" {
   zone_id = aws_route53_zone.raviqqe_com.zone_id
   name    = "xenon.raviqqe.com"
