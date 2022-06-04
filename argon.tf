@@ -89,5 +89,5 @@ resource "aws_spot_instance_request" "argon" {
 }
 
 resource "aws_eip" "argon" {
-  instance = aws_spot_instance_request.argon.id
+  instance = aws_spot_instance_request.argon.spot_instance_id
 }
