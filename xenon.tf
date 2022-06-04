@@ -6,6 +6,10 @@ data "google_compute_network" "default" {
   name = "default"
 }
 
+resource "google_compute_address" "xenon" {
+  name = "xenon"
+}
+
 resource "google_compute_firewall" "http" {
   name          = "http"
   network       = data.google_compute_network.default.name
@@ -69,7 +73,9 @@ resource "google_compute_instance" "xenon" {
   network_interface {
     network = data.google_compute_network.default.name
 
-    access_config {}
+    access_config {
+      nat_ip = google_compute_address.xenon.address
+    }
   }
 
   scheduling {
@@ -77,8 +83,4 @@ resource "google_compute_instance" "xenon" {
     preemptible        = true
     automatic_restart  = false
   }
-}
-
-output "xenon_ip_address" {
-  value = google_compute_instance.xenon.network_interface.0.access_config.0.nat_ip
 }
