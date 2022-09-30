@@ -56,7 +56,7 @@ resource "google_compute_firewall" "ssh" {
 
 resource "google_compute_instance" "xenon" {
   name                      = "xenon"
-  machine_type              = "e2-highcpu-4"
+  machine_type              = "e2-highcpu-2"
   allow_stopping_for_update = true
   tags                      = ["http", "mosh", "ssh"]
   metadata = {
