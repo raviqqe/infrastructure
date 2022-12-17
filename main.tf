@@ -15,4 +15,5 @@ provider "aws" {
 provider "google" {
   project = "dev-server-199623"
   region  = "us-west1"
+  zone    = "us-west1b"
 }
