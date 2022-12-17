@@ -65,7 +65,7 @@ resource "google_compute_instance" "xenon" {
 
   boot_disk {
     initialize_params {
-      size = 256
+      size = 8
       type = "pd-standard"
     }
   }
