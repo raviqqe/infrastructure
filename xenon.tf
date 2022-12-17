@@ -59,8 +59,14 @@ resource "google_compute_instance" "xenon" {
   machine_type              = "e2-highcpu-2"
   allow_stopping_for_update = true
   tags                      = ["http", "mosh", "ssh"]
+
   metadata = {
-    ssh-keys = join(":", [local.ssh.user, local.ssh.public_key])
+    ssh-keys       = join(":", [local.ssh.user, local.ssh.public_key])
+    startup-script = <<-EOF
+apt -y update --fix-missing
+apt -y install build-essential git rcm zsh
+apt -y upgrade
+EOF
   }
 
   boot_disk {
