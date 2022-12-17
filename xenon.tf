@@ -65,8 +65,9 @@ resource "google_compute_instance" "xenon" {
 
   boot_disk {
     initialize_params {
-      size = 32
-      type = "pd-standard"
+      image = data.google_compute_image.ubuntu.self_link
+      type  = "pd-standard"
+      size  = 32
     }
   }
 
@@ -83,4 +84,9 @@ resource "google_compute_instance" "xenon" {
     preemptible        = true
     automatic_restart  = false
   }
+}
+
+data "google_compute_image" "ubuntu" {
+  family  = "ubuntu-2204-lts"
+  project = "ubuntu-os-cloud"
 }
