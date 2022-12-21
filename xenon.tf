@@ -64,7 +64,7 @@ resource "google_compute_instance" "xenon" {
     ssh-keys       = join(":", [local.ssh.user, local.ssh.public_key])
     startup-script = <<-EOF
 apt -y update --fix-missing
-apt -y install build-essential git rcm zlib1g-dev zsh
+apt -y install build-essential git libssl-dev rcm zlib1g-dev zsh
 apt -y upgrade
 EOF
   }
