@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "raviqqe" {
   name          = "raviqqe"
   location      = "US"
-  storage_class = "ARCHIVE"
+  storage_class = "COLDLINE"
 }
