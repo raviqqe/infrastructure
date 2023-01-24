@@ -10,6 +10,6 @@ resource "github_repository" "dictionary" {
   allow_squash_merge          = true
   allow_update_branch         = true
   delete_branch_on_merge      = true
-  squash_merge_commit_message = "COMMIT_MESSAGES"
-  squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+  squash_merge_commit_message = "PR_BODY"
+  squash_merge_commit_title   = "PR_TITLE"
 }
