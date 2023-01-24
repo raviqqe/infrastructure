@@ -1,3 +1,18 @@
+variable "name" {
+  type = string
+}
+
+variable "description" {
+  type    = string
+  default = ""
+}
+
+variable "homepage_url" {
+  type    = string
+  default = ""
+}
+
 variable "private" {
-  type = "boolean"
+  type    = boolean
+  default = true
 }
