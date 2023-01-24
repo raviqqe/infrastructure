@@ -1,4 +1,5 @@
 resource "github_repository" "dictionary" {
-  name       = "dictionary"
-  visibility = "private"
+  name                = "dictionary"
+  private             = true
+  allow_update_branch = true
 }
