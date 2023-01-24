@@ -13,6 +13,6 @@ variable "homepage_url" {
 }
 
 variable "private" {
-  type    = boolean
+  type    = bool
   default = true
 }
