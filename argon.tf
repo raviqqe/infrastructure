@@ -38,7 +38,7 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-resource "aws_key_pair" "neon" {
+resource "aws_key_pair" "argon" {
   public_key = local.ssh.public_key
 }
 
@@ -83,7 +83,7 @@ resource "aws_security_group_rule" "egress" {
 resource "aws_spot_instance_request" "argon" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t4g.micro"
-  key_name               = aws_key_pair.neon.key_name
+  key_name               = aws_key_pair.argon.key_name
   vpc_security_group_ids = [aws_security_group.default.id]
   wait_for_fulfillment   = true
 }
