@@ -8,14 +8,14 @@ module "github_repository" {
 }
 
 resource "random_id" "dictionary_project_id" {
-  byte_length = 5
+  byte_length = 4
   prefix      = "dictionary-"
 }
 
 resource "google_project" "dictionary" {
   provider = google-beta
 
-  project_id = random_id.dictionary_project_id.id
+  project_id = random_id.dictionary_project_id.hex
   name       = "dictionary"
 }
 
