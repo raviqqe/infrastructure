@@ -22,6 +22,5 @@ resource "google_project" "dictionary" {
 resource "google_firebase_project" "default" {
   provider = google-beta
 
-  project      = google_project.dictionary.project_id
-  display_name = "dictionary"
+  project = google_project.dictionary.project_id
 }
