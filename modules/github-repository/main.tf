@@ -4,7 +4,7 @@ resource "github_repository" "repository" {
   homepage_url = var.homepage_url
   visibility   = var.private ? "private" : "public"
 
-  allow_auto_merge            = true
+  allow_auto_merge            = !var.private
   allow_merge_commit          = false
   allow_rebase_merge          = false
   allow_squash_merge          = true
