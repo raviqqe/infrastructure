@@ -7,15 +7,20 @@ module "github_repository" {
   private      = true
 }
 
+resource "random_id" "dictionary_project_id" {
+  byte_length = 5
+  prefix      = "dictionary-"
+}
+
 resource "google_project" "dictionary" {
   provider = google-beta
 
-  project_id = "dictionary-%{random_suffix}"
+  project_id = random_id.dictionary_project_id.id
   name       = "dictionary"
 }
 
 resource "google_firebase_project" "default" {
   provider = google-beta
 
-  project  = google_project.dictionary.project_id
+  project = google_project.dictionary.project_id
 }
