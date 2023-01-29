@@ -24,3 +24,8 @@ resource "aws_amplify_backend_environment" "dictionary" {
 resource "aws_amplify_app" "dictionary_2" {
   name = "dictionary_2"
 }
+
+resource "aws_amplify_backend_environment" "dictionary_2" {
+  app_id           = aws_amplify_app.dictionary_2.id
+  environment_name = "production"
+}
