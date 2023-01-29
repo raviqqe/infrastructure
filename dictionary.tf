@@ -11,21 +11,7 @@ resource "aws_amplify_app" "dictionary" {
   name = "dictionary"
 }
 
-resource "aws_amplify_branch" "main" {
-  app_id      = aws_amplify_app.dictionary.id
-  branch_name = "main"
-}
-
 resource "aws_amplify_backend_environment" "dictionary" {
   app_id           = aws_amplify_app.dictionary.id
-  environment_name = "production"
-}
-
-resource "aws_amplify_app" "dictionary_2" {
-  name = "dictionary_2"
-}
-
-resource "aws_amplify_backend_environment" "dictionary_2" {
-  app_id           = aws_amplify_app.dictionary_2.id
   environment_name = "production"
 }
