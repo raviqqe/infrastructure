@@ -12,7 +12,7 @@ resource "aws_amplify_app" "dictionary" {
 }
 
 resource "aws_amplify_backend_environment" "dictionary" {
-  app_id           = aws_amplify_app.example.id
+  app_id           = aws_amplify_app.dictionary.id
   environment_name = "example"
 
   deployment_artifacts = "app-example-deployment"
