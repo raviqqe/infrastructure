@@ -18,5 +18,14 @@ resource "aws_amplify_branch" "main" {
 
 resource "aws_amplify_backend_environment" "dictionary" {
   app_id           = aws_amplify_app.dictionary.id
-  environment_name = "dictionary"
+  environment_name = "production"
+}
+
+resource "aws_amplify_app" "infini_dict" {
+  name = "infini-dict"
+}
+
+resource "aws_amplify_backend_environment" "infini_dict" {
+  app_id           = aws_amplify_app.infini_dict.id
+  environment_name = "staging"
 }
