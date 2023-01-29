@@ -11,6 +11,11 @@ resource "aws_amplify_app" "dictionary" {
   name = "dictionary"
 }
 
+resource "aws_amplify_branch" "main" {
+  app_id      = aws_amplify_app.dictionary.id
+  branch_name = "main"
+}
+
 resource "aws_amplify_backend_environment" "dictionary" {
   app_id           = aws_amplify_app.dictionary.id
   environment_name = "dictionary"
