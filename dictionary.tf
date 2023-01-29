@@ -26,6 +26,6 @@ resource "aws_amplify_app" "infini_dict" {
 }
 
 resource "aws_amplify_backend_environment" "infini_dict" {
-  app_id           = aws_amplify_app.dictionary.id
+  app_id           = aws_amplify_app.infini_dict.id
   environment_name = "production"
 }
