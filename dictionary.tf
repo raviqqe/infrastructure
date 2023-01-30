@@ -7,12 +7,11 @@ module "github_repository" {
   private      = true
 }
 
-# TODO Revert this back.
-# resource "aws_amplify_app" "dictionary" {
-#   name = "dictionary"
-# }
+resource "aws_amplify_app" "dictionary" {
+  name = "dictionary"
+}
 
-# resource "aws_amplify_backend_environment" "dictionary" {
-#   app_id           = aws_amplify_app.dictionary.id
-#   environment_name = "production"
-# }
+resource "aws_amplify_backend_environment" "dictionary" {
+  app_id           = aws_amplify_app.dictionary.id
+  environment_name = "production"
+}
