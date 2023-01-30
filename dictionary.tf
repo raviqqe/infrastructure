@@ -7,6 +7,8 @@ module "github_repository" {
   private      = true
 }
 
-resource "aws_amplify_app" "dictionary" {
+module "aws_amplify" {
+  source = "./modules/aws_amplify"
+
   name = "dictionary"
 }
