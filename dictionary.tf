@@ -10,3 +10,13 @@ module "github_repository" {
 resource "aws_amplify_app" "dictionary" {
   name = "dictionary"
 }
+
+resource "aws_amplify_backend_environment" "dictionary" {
+  app_id           = aws_amplify_app.dictionary.id
+  environment_name = "staging"
+}
+
+resource "aws_amplify_backend_environment" "production" {
+  app_id           = aws_amplify_app.dictionary.id
+  environment_name = "production"
+}
