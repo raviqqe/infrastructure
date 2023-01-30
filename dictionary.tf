@@ -1,4 +1,4 @@
-module "github_repository" {
+module "dictionary_repository" {
   source = "./modules/github_repository"
 
   name         = "dictionary"
@@ -7,7 +7,7 @@ module "github_repository" {
   private      = true
 }
 
-module "aws_amplify" {
+module "dictionary_amplify" {
   source = "./modules/aws_amplify"
 
   name = "dictionary"
