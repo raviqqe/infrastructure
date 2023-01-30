@@ -1,5 +1,5 @@
-module "github_repository" {
-  source = "./modules/github-repository"
+module "dictionary_repository" {
+  source = "./modules/github_repository"
 
   name         = "dictionary"
   description  = "English dictionary for English learners"
@@ -7,7 +7,7 @@ module "github_repository" {
   private      = true
 }
 
-module "aws_amplify" {
+module "dictionary_amplify" {
   source = "./modules/aws_amplify"
 
   name = "dictionary"
