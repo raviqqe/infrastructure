@@ -37,6 +37,10 @@ resource "aws_route53_record" "www_cloe_org" {
   records = [local.cloe_github_domain]
 }
 
+resource "aws_route53_zone" "code2d_com" {
+  name = "code2d.com"
+}
+
 resource "aws_route53_zone" "code2d_net" {
   name = "code2d.net"
 }
