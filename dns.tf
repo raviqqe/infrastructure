@@ -77,6 +77,16 @@ resource "aws_route53_record" "dictionary" {
   records = ["cname.vercel-dns.com."]
 }
 
+
+resource "aws_route53_record" "dictionary" {
+  zone_id = aws_route53_zone.code2d_org.zone_id
+  name    = "_vercel"
+  type    = "TXT"
+  ttl     = local.record_ttl
+  records = ["vc-domain-verify=dictionary.code2d.org,0144bb9d863b3ed5148a"]
+}
+
+
 resource "aws_route53_zone" "ein_com" {
   name = "ein-lang.com"
 }
