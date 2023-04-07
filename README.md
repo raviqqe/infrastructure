@@ -5,6 +5,12 @@
 
 My infrastructure configuration in Terraform
 
+## GitHub token
+
+- Permissions
+  - `admin:public_key`
+  - `repo`
+
 ## License
 
 [The Unlicense](UNLICENSE)
