@@ -7,7 +7,7 @@ My infrastructure configuration in Terraform
 
 ## GitHub token
 
-- Permissions:
+- Permissions
   - `admin:public_key`
   - `repo`
 
