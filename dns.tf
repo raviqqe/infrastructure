@@ -83,7 +83,10 @@ resource "aws_route53_record" "vercel" {
   name    = "_vercel"
   type    = "TXT"
   ttl     = local.record_ttl
-  records = ["vc-domain-verify=dictionary.code2d.org,0144bb9d863b3ed5148a"]
+  records = [
+    "vc-domain-verify=code2d.org,44345a92c0d3ff67651c",
+    "vc-domain-verify=dictionary.code2d.org,0144bb9d863b3ed5148a",
+  ]
 }
 
 resource "aws_route53_zone" "ein_com" {
