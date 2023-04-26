@@ -56,9 +56,9 @@ resource "aws_route53_record" "tasks" {
 resource "aws_route53_record" "primary" {
   zone_id = aws_route53_zone.code2d_org.zone_id
   name    = "code2d.org"
-  type    = "CNAME"
+  type    = "A"
   ttl     = local.record_ttl
-  records = ["cname.vercel-dns.com."]
+  records = ["76.76.21.21"]
 }
 
 resource "aws_route53_record" "notes" {
