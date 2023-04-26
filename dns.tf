@@ -53,6 +53,14 @@ resource "aws_route53_record" "tasks" {
   records = local.firebase_records
 }
 
+resource "aws_route53_record" "primary" {
+  zone_id = aws_route53_zone.code2d_org.zone_id
+  name    = "code2d.org"
+  type    = "CNAME"
+  ttl     = local.record_ttl
+  records = ["cname.vercel-dns.com."]
+}
+
 resource "aws_route53_record" "notes" {
   zone_id = aws_route53_zone.code2d_org.zone_id
   name    = "notes.code2d.org"
