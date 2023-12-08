@@ -1,5 +1,5 @@
 module "dictionary_repository" {
-  source = "./modules/github_repository"
+  source = "git::https://github.com/raviqqe/terraform-modules"
 
   name         = "dictionary"
   description  = "English dictionary for English learners"
@@ -8,7 +8,7 @@ module "dictionary_repository" {
 }
 
 module "dictionary_amplify" {
-  source = "./modules/aws_amplify"
+  source = "git::https://github.com/raviqqe/terraform-modules"
 
   name = "dictionary"
 }
