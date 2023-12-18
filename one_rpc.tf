@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "one_rpc_ci" {
 }
 
 resource "aws_iam_user_policy" "one_rpc_ci" {
-  name   = "test"
+  name   = "one_rpc_ci"
   user   = aws_iam_user.one_rpc_ci.name
   policy = data.aws_iam_policy_document.one_rpc_ci.json
 }
