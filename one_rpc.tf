@@ -1,11 +1,11 @@
-resource "aws_iam_access_key" "lb" {
-  user    = aws_iam_user.lb.name
-  pgp_key = "keybase:some_person_that_exists"
-}
-
 resource "aws_iam_user" "one_rpc_ci" {
   name = "one_rpc_ci"
   path = "/system/"
+}
+
+resource "aws_iam_access_key" "lb" {
+  user    = aws_iam_user.lb.name
+  pgp_key = "keybase:some_person_that_exists"
 }
 
 data "aws_iam_policy_document" "lb_ro" {
