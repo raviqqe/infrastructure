@@ -3,12 +3,12 @@ resource "aws_iam_user" "one_rpc_ci" {
   path = "/system/"
 }
 
-resource "aws_iam_access_key" "lb" {
-  user    = aws_iam_user.lb.name
+resource "aws_iam_access_key" "one_rpc_ci" {
+  user    = aws_iam_user.one_rpc_ci.name
   pgp_key = "keybase:some_person_that_exists"
 }
 
-data "aws_iam_policy_document" "lb_ro" {
+data "aws_iam_policy_document" "one_rpc_ci" {
   statement {
     effect    = "Allow"
     actions   = ["ec2:Describe*"]
@@ -16,13 +16,13 @@ data "aws_iam_policy_document" "lb_ro" {
   }
 }
 
-resource "aws_iam_user_policy" "lb_ro" {
+resource "aws_iam_user_policy" "one_rpc_ci" {
   name   = "test"
-  user   = aws_iam_user.lb.name
-  policy = data.aws_iam_policy_document.lb_ro.json
+  user   = aws_iam_user.one_rpc_ci.name
+  policy = data.aws_iam_policy_document.one_rpc_ci.json
 }
 
 output "secret" {
-  value     = aws_iam_access_key.lb.encrypted_secret
+  value     = aws_iam_access_key.one_rpc_ci.encrypted_secret
   sensitive = true
 }
