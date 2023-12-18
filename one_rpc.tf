@@ -3,8 +3,8 @@ resource "aws_iam_access_key" "lb" {
   pgp_key = "keybase:some_person_that_exists"
 }
 
-resource "aws_iam_user" "lb" {
-  name = "loadbalancer"
+resource "aws_iam_user" "one_rpc_ci" {
+  name = "one_rpc_ci"
   path = "/system/"
 }
 
