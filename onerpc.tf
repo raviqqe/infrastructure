@@ -1,7 +1,7 @@
 module "onerpc_repository" {
   source = "git::https://github.com/raviqqe/terraform-modules//github_repository"
 
-  name        = "onerpc"
+  name        = "oneRPC"
   description = "English dictionary for English learners"
   private     = false
 }
