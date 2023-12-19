@@ -14,7 +14,7 @@ module "onerpc_repository" {
 }
 
 data "github_actions_public_key" "onerpc" {
-  repository = module.onerpc_repository.repo_id
+  repository = "oneRPC"
 }
 
 resource "github_actions_secret" "aws_role" {
