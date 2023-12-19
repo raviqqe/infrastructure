@@ -13,6 +13,10 @@ module "onerpc_repository" {
   private = false
 }
 
+data "github_actions_public_key" "onerpc" {
+  repository = module.onerpc_repository.repo_id
+}
+
 resource "github_actions_secret" "aws_role" {
   repository      = module.onerpc_repository.repo_id
   secret_name     = "aws_role"
