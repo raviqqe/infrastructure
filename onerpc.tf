@@ -14,11 +14,11 @@ module "onerpc_repository" {
 }
 
 data "github_actions_public_key" "onerpc" {
-  repository = "oneRPC"
+  repository = module.onerpc_repository.name
 }
 
 resource "github_actions_secret" "aws_role" {
-  repository      = module.onerpc_repository.repo_id
+  repository      = module.onerpc_repository.name
   secret_name     = "aws_role"
   plaintext_value = aws_iam_role.onerpc_ci.arn
 }
