@@ -18,8 +18,7 @@ resource "aws_iam_user_policy" "onerpc_ci" {
 }
 
 resource "aws_iam_access_key" "onerpc_ci" {
-  user    = aws_iam_user.onerpc_ci.name
-  pgp_key = "keybase:515821172331"
+  user = aws_iam_user.onerpc_ci.name
 }
 
 output "secret" {
