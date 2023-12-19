@@ -21,10 +21,10 @@ resource "github_actions_secret" "aws_role" {
 
 data "aws_iam_policy_document" "onerpc_ci_assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
+    actions = ["sts:AssumeRole", "sts:AssumeRoleWithWebIdentity"]
     principals {
       type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
+      identifiers = ["sts.amazonaws.com"]
     }
   }
 }
