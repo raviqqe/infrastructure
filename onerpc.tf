@@ -3,7 +3,14 @@ module "onerpc_repository" {
 
   name        = "oneRPC"
   description = "English dictionary for English learners"
-  private     = false
+  topics = [
+    "aws-lambda",
+    "edge-computing",
+    "nextjs",
+    "rpc",
+    "typescript",
+  ]
+  private = false
 }
 
 data "aws_iam_policy_document" "onerpc_ci_assume_role" {
