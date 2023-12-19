@@ -14,7 +14,7 @@ module "onerpc_repository" {
 }
 
 resource "github_actions_secret" "aws_role" {
-  repository      = onerpc_repository.github_repository.name
+  repository      = onerpc_repository.name
   secret_name     = "aws_role"
   plaintext_value = aws_iam_role.onerpc_ci.arn
 }
