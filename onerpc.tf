@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
     actions = ["sts:AssumeRole", "sts:AssumeRoleWithWebIdentity"]
     principals {
       type        = "Service"
-      identifiers = ["lambda.amazonaws.com", "sts.amazonaws.com"]
+      identifiers = ["sts.amazonaws.com"]
     }
   }
 }
