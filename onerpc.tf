@@ -13,6 +13,12 @@ module "onerpc_repository" {
   private = false
 }
 
+resource "github_actions_secret" "aws_role" {
+  repository      = onerpc_repository.github_repository.name
+  secret_name     = "aws_role"
+  plaintext_value = aws_iam_role.onerpc_ci.arn
+}
+
 data "aws_iam_policy_document" "onerpc_ci_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
