@@ -11,7 +11,7 @@ resource "aws_iam_user" "onerpc_ci" {
   path = "/system/"
 }
 
-resource "aws_iam_role" "test_role" {
+resource "aws_iam_role" "onerpc_ci" {
   name               = "onerpc_ci"
   assume_role_policy = data.aws_iam_policy_document.onerpc_ci.json
 }
