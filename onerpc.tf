@@ -1,3 +1,11 @@
+module "onerpc_repository" {
+  source = "git::https://github.com/raviqqe/terraform-modules//github_repository"
+
+  name        = "onerpc"
+  description = "English dictionary for English learners"
+  private     = false
+}
+
 data "aws_iam_policy_document" "onerpc_ci_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
