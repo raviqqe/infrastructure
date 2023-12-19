@@ -22,6 +22,10 @@ resource "aws_iam_access_key" "onerpc_ci" {
   pgp_key = "keybase:raviqqe"
 }
 
-output "secret" {
+output "onerpc_ci_access_key_id" {
+  value = aws_iam_access_key.onerpc_ci.id
+}
+
+output "onerpc_ci_secret_access_key" {
   value = aws_iam_access_key.onerpc_ci.encrypted_secret
 }
