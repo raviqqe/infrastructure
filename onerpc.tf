@@ -22,6 +22,6 @@ resource "aws_iam_access_key" "onerpc_ci" {
 }
 
 output "secret" {
-  value     = aws_iam_access_key.onerpc_ci.encrypted_secret
+  value     = aws_iam_access_key.onerpc_ci.secret
   sensitive = true
 }
