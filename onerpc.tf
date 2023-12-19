@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "instance_assume_role_policy" {
+data "aws_iam_policy_document" "onerpc_ci_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
     principals {
@@ -10,7 +10,7 @@ data "aws_iam_policy_document" "instance_assume_role_policy" {
 
 resource "aws_iam_role" "onerpc_ci" {
   name               = "onerpc_ci"
-  assume_role_policy = data.aws_iam_policy_document.onerpc_ci.json
+  assume_role_policy = data.aws_iam_policy_document.onerpc_ci_assume_role.json
 }
 
 resource "aws_iam_user" "onerpc_ci" {
