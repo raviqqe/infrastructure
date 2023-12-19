@@ -1,3 +1,18 @@
+module "onerpc_repository" {
+  source = "git::https://github.com/raviqqe/terraform-modules//github_repository"
+
+  name        = "oneRPC"
+  description = "The router-less serverless RPC framework for TypeScript"
+  topics = [
+    "aws-lambda",
+    "edge-computing",
+    "nextjs",
+    "rpc",
+    "typescript",
+  ]
+  private = false
+}
+
 data "aws_iam_policy_document" "onerpc_ci_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
