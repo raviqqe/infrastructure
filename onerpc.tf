@@ -27,14 +27,14 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
       identifiers = [aws_iam_openid_connect_provider.github.arn]
     }
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:aud"
       values   = ["sts.amazonaws.com"]
     }
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:aud"
-      values   = ["sts.amazonaws.com"]
+      values   = ["repo:raviqqe/oneRPC:environment:prod"]
     }
   }
 }
