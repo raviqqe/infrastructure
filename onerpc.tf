@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
     }
     condition {
       test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:aud"
+      variable = "token.actions.githubusercontent.com:sub"
       values = [
         "repo:raviqqe/oneRPC:environment:ref:refs/heads/main",
         "repo:raviqqe/oneRPC:environment:ref:refs/heads/chore/cdk-deploy",
