@@ -21,9 +21,13 @@ resource "github_actions_secret" "aws_role" {
 
 data "aws_iam_policy_document" "onerpc_ci" {
   statement {
-    effect    = "Allow"
     actions   = ["ssm:GetParameter"]
-    resources = ["arn:aws:ssm:us-west-2:${data.aws_caller_identity.current.id}:parameter/cdk-bootstrap/hnb659fds/*"]
+    resources = ["arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.id}:parameter/cdk-bootstrap/hnb659fds/*"]
+  }
+
+  statement {
+    actions   = ["sts::AssumeRole"]
+    resources = ["arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-hnb659fds-deploy-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}"]
   }
 }
 
