@@ -1,5 +1,5 @@
-locals {
-  github_user = "raviqqe"
+data "github_user" "me" {
+  username = ""
 }
 
 resource "github_user_ssh_key" "mac" {
