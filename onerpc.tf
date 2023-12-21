@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
       values   = ["sts.amazonaws.com"]
     }
     condition {
-      test     = "StringEquals"
+      test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
         "repo:raviqqe/oneRPC:ref:refs/heads/main",
