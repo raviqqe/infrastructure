@@ -1,4 +1,4 @@
-data "github_user" "me" {
+data "github_user" "current" {
   username = ""
 }
 
