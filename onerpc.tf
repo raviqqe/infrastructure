@@ -67,7 +67,6 @@ resource "aws_iam_role_policy_attachment" "onerpc_ci" {
 
 resource "aws_iam_user" "onerpc_ci" {
   name = "onerpc_ci"
-  path = "/system/"
 }
 
 resource "aws_iam_user_policy_attachment" "onerpc_ci" {
