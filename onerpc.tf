@@ -19,18 +19,34 @@ resource "github_actions_secret" "aws_role" {
   plaintext_value = aws_iam_role.onerpc_ci.arn
 }
 
+data "aws_iam_policy_document" "onerpc_ci" {
+  statement {
+    effect    = "Allow"
+    actions   = ["ssm:GetParameter"]
+    resources = ["arn:aws:ssm:us-west-2:${data.aws_caller_identity.current.id}:parameter/cdk-bootstrap/hnb659fds/*"]
+  }
+}
+
+resource "aws_iam_policy" "onerpc_ci" {
+  name   = "onerpc_ci"
+  policy = data.aws_iam_policy_document.onerpc_ci.json
+}
+
 data "aws_iam_policy_document" "onerpc_ci_assume_role" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
+
     principals {
       type        = "Federated"
       identifiers = [aws_iam_openid_connect_provider.github.arn]
     }
+
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:aud"
       values   = ["sts.amazonaws.com"]
     }
+
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
@@ -44,23 +60,18 @@ resource "aws_iam_role" "onerpc_ci" {
   assume_role_policy = data.aws_iam_policy_document.onerpc_ci_assume_role.json
 }
 
+resource "aws_iam_role_policy_attachment" "onerpc_ci" {
+  role       = aws_iam_role.onerpc_ci.name
+  policy_arn = aws_iam_policy.onerpc_ci.arn
+}
+
 resource "aws_iam_user" "onerpc_ci" {
   name = "onerpc_ci"
-  path = "/system/"
 }
 
-data "aws_iam_policy_document" "onerpc_ci" {
-  statement {
-    effect    = "Allow"
-    actions   = ["ssm:GetParameter"]
-    resources = ["arn:aws:ssm:us-west-2:${data.aws_caller_identity.current.id}:parameter/cdk-bootstrap/hnb659fds/*"]
-  }
-}
-
-resource "aws_iam_user_policy" "onerpc_ci" {
-  name   = "onerpc_ci"
-  user   = aws_iam_user.onerpc_ci.name
-  policy = data.aws_iam_policy_document.onerpc_ci.json
+resource "aws_iam_user_policy_attachment" "onerpc_ci" {
+  user       = aws_iam_user.onerpc_ci.name
+  policy_arn = aws_iam_policy.onerpc_ci.arn
 }
 
 resource "aws_iam_access_key" "onerpc_ci" {
