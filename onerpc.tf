@@ -21,8 +21,10 @@ resource "github_actions_secret" "aws_role" {
 
 data "aws_iam_policy_document" "onerpc_ci" {
   statement {
-    actions   = ["sts:AssumeRole"]
-    resources = ["arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-*-deploy-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}"]
+    actions = ["sts:AssumeRole"]
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-*-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}"
+    ]
   }
 }
 
