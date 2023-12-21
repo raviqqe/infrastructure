@@ -32,12 +32,9 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
       values   = ["sts.amazonaws.com"]
     }
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values = [
-        "repo:raviqqe/oneRPC:ref:refs/heads/main",
-        "repo:raviqqe/oneRPC:ref:refs/heads/chore/cdk-deploy",
-      ]
+      values   = ["repo:${module.onerpc_repository.full_name}:ref:refs/heads/main"]
     }
   }
 }
@@ -68,7 +65,7 @@ resource "aws_iam_user_policy" "onerpc_ci" {
 
 resource "aws_iam_access_key" "onerpc_ci" {
   user    = aws_iam_user.onerpc_ci.name
-  pgp_key = "keybase:raviqqe"
+  pgp_key = "keybase:${local.keybase_user}"
 }
 
 output "onerpc_ci_access_key_id" {
