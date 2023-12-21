@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "onerpc_ci" {
   }
 
   statement {
-    actions   = ["sts::AssumeRole"]
+    actions   = ["sts:AssumeRole"]
     resources = ["arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-hnb659fds-deploy-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}"]
   }
 }
