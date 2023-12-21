@@ -1,7 +1,3 @@
-locals {
-  github_ = "raviqqe"
-}
-
 module "onerpc_repository" {
   source = "git::https://github.com/raviqqe/terraform-modules//github_repository"
 
@@ -69,7 +65,7 @@ resource "aws_iam_user_policy" "onerpc_ci" {
 
 resource "aws_iam_access_key" "onerpc_ci" {
   user    = aws_iam_user.onerpc_ci.name
-  pgp_key = "keybase:raviqqe"
+  pgp_key = "keybase:${locals.keybase_user}"
 }
 
 output "onerpc_ci_access_key_id" {
