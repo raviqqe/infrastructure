@@ -26,6 +26,11 @@ data "aws_iam_policy_document" "onerpc_ci" {
   }
 
   statement {
+    actions   = ["sts:GetCallerIdentity"]
+    resources = ["*"]
+  }
+
+  statement {
     actions   = ["sts:AssumeRole"]
     resources = ["*"]
   }
