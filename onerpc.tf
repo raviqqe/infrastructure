@@ -1,3 +1,7 @@
+locals {
+  github_ = "raviqqe"
+}
+
 module "onerpc_repository" {
   source = "git::https://github.com/raviqqe/terraform-modules//github_repository"
 
@@ -32,12 +36,9 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
       values   = ["sts.amazonaws.com"]
     }
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values = [
-        "repo:raviqqe/oneRPC:ref:refs/heads/main",
-        "repo:raviqqe/oneRPC:ref:refs/heads/chore/cdk-deploy",
-      ]
+      values   = ["repo:raviqqe/oneRPC:ref:refs/heads/main"]
     }
   }
 }
