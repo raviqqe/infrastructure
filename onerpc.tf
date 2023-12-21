@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${module.onerpc_repository.repo_id}:ref:refs/heads/main"]
+      values   = ["repo:${module.onerpc_repository.full_name}:ref:refs/heads/main"]
     }
   }
 }
