@@ -65,7 +65,7 @@ resource "aws_iam_user_policy" "onerpc_ci" {
 
 resource "aws_iam_access_key" "onerpc_ci" {
   user    = aws_iam_user.onerpc_ci.name
-  pgp_key = "keybase:${locals.keybase_user}"
+  pgp_key = "keybase:${local.keybase_user}"
 }
 
 output "onerpc_ci_access_key_id" {
