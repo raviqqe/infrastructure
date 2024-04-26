@@ -8,11 +8,6 @@ data "aws_ami" "ubuntu" {
   owners      = [local.canonical_owner_id]
 
   filter {
-    name   = "creation-date"
-    values = ["2022-04-*"]
-  }
-
-  filter {
     name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-*-server-*"]
   }
