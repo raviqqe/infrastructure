@@ -16,21 +16,6 @@ data "aws_ami" "ubuntu" {
     name   = "architecture"
     values = ["arm64"]
   }
-
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-
-  filter {
-    name   = "block-device-mapping.volume-type"
-    values = ["gp2"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
 }
 
 resource "aws_key_pair" "argon" {
