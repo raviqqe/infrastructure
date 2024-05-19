@@ -3,7 +3,7 @@ module "dictionary_repository" {
 
   name         = "dictionary"
   description  = "English dictionary for English learners"
-  homepage_url = "https://dictionary.code2d.org/"
+  homepage_url = "https://englia.app/"
   private      = true
 }
 
