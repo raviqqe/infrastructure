@@ -8,6 +8,12 @@ resource "aws_s3_bucket" "raviqqe" {
   bucket = "raviqqe"
 }
 
+resource "aws_s3_bucket_acl" "raviqqe" {
+  depends_on = [aws_s3_bucket_public_access_block.raviqqe]
+
+  bucket = aws_s3_bucket.raviqqe.id
+  acl    = "public-read"
+}
 
 resource "aws_s3_bucket_cors_configuration" "raviqqe" {
   bucket = aws_s3_bucket.raviqqe.id
@@ -34,6 +40,14 @@ resource "aws_s3_bucket_intelligent_tiering_configuration" "raviqqe" {
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "raviqqe" {
+  bucket = aws_s3_bucket.raviqqe.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
 
 resource "aws_s3_bucket_versioning" "raviqqe" {
   bucket = aws_s3_bucket.raviqqe.id
