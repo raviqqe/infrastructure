@@ -9,7 +9,10 @@ resource "aws_s3_bucket" "raviqqe" {
 }
 
 resource "aws_s3_bucket_acl" "raviqqe" {
-  depends_on = [aws_s3_bucket_public_access_block.raviqqe]
+  depends_on = [
+    aws_s3_bucket_ownership_controls.raviqqe,
+    aws_s3_bucket_public_access_block.raviqqe,
+  ]
 
   bucket = aws_s3_bucket.raviqqe.id
   acl    = "public-read"
@@ -37,6 +40,14 @@ resource "aws_s3_bucket_intelligent_tiering_configuration" "raviqqe" {
   tiering {
     access_tier = "ARCHIVE_ACCESS"
     days        = 90
+  }
+}
+
+resource "aws_s3_bucket_ownership_controls" "raviqqe" {
+  bucket = aws_s3_bucket.raviqqe.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
   }
 }
 
