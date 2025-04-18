@@ -33,3 +33,12 @@ resource "aws_s3_bucket_intelligent_tiering_configuration" "raviqqe" {
     days        = 90
   }
 }
+
+
+resource "aws_s3_bucket_versioning" "raviqqe" {
+  bucket = aws_s3_bucket.raviqqe.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
