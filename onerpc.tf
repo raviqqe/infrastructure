@@ -75,16 +75,3 @@ resource "aws_iam_user_policy_attachment" "onerpc_ci" {
   user       = aws_iam_user.onerpc_ci.name
   policy_arn = aws_iam_policy.onerpc_ci.arn
 }
-
-resource "aws_iam_access_key" "onerpc_ci" {
-  user    = aws_iam_user.onerpc_ci.name
-  pgp_key = "keybase:${local.keybase_user}"
-}
-
-output "onerpc_ci_access_key_id" {
-  value = aws_iam_access_key.onerpc_ci.id
-}
-
-output "onerpc_ci_secret_access_key" {
-  value = aws_iam_access_key.onerpc_ci.encrypted_secret
-}
