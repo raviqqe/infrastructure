@@ -66,12 +66,3 @@ resource "aws_iam_role_policy_attachment" "onerpc_ci" {
   role       = aws_iam_role.onerpc_ci.name
   policy_arn = aws_iam_policy.onerpc_ci.arn
 }
-
-resource "aws_iam_user" "onerpc_ci" {
-  name = "onerpc_ci"
-}
-
-resource "aws_iam_user_policy_attachment" "onerpc_ci" {
-  user       = aws_iam_user.onerpc_ci.name
-  policy_arn = aws_iam_policy.onerpc_ci.arn
-}
