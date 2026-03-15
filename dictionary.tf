@@ -6,9 +6,3 @@ module "dictionary_repository" {
   homepage_url = "https://englia.app/"
   private      = true
 }
-
-module "dictionary_amplify" {
-  source = "git::https://github.com/raviqqe/terraform-modules//aws_amplify"
-
-  name = "dictionary"
-}
