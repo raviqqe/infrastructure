@@ -162,7 +162,7 @@ resource "aws_route53_zone" "ytoyama_com" {
 }
 
 locals {
-  route53_zones = {
+  zones = {
     cloe_org    = aws_route53_zone.cloe_org.id
     code2d_net  = aws_route53_zone.code2d_net.id
     code2d_org  = aws_route53_zone.code2d_org.id
@@ -219,7 +219,7 @@ resource "aws_kms_key" "dnssec" {
 }
 
 resource "aws_route53_key_signing_key" "main" {
-  for_each = local.route53_zones
+  for_each = local.zones
 
   hosted_zone_id             = each.value
   key_management_service_arn = aws_kms_key.dnssec.arn
@@ -227,7 +227,7 @@ resource "aws_route53_key_signing_key" "main" {
 }
 
 resource "aws_route53_hosted_zone_dnssec_signing" "main" {
-  for_each = local.route53_zones
+  for_each = local.zones
 
   hosted_zone_id = aws_route53_key_signing_key.main[each.key].hosted_zone_id
 }
