@@ -20,7 +20,6 @@ resource "github_repository" "repository" {
   allow_squash_merge          = true
   allow_update_branch         = true
   delete_branch_on_merge      = true
-  has_downloads               = true
   has_issues                  = true
   has_projects                = true
   has_wiki                    = true
