@@ -1,5 +1,5 @@
 module "onerpc_repository" {
-  source = "git::https://github.com/raviqqe/terraform-modules//github_repository"
+  source = "./modules/github_repository"
 
   name         = "oneRPC"
   description  = "The router-less serverless RPC framework for TypeScript"
