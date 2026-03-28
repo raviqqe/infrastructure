@@ -4,6 +4,10 @@ resource "google_storage_bucket" "raviqqe" {
   storage_class               = "COLDLINE"
   uniform_bucket_level_access = true
   public_access_prevention    = "enforced"
+
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_s3_bucket" "raviqqe" {
