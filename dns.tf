@@ -160,3 +160,74 @@ resource "aws_route53_zone" "raviqqe_com" {
 resource "aws_route53_zone" "ytoyama_com" {
   name = "ytoyama.com"
 }
+
+locals {
+  route53_zones = {
+    cloe_org    = aws_route53_zone.cloe_org.id
+    code2d_net  = aws_route53_zone.code2d_net.id
+    code2d_org  = aws_route53_zone.code2d_org.id
+    ein_com     = aws_route53_zone.ein_com.id
+    ein_org     = aws_route53_zone.ein_org.id
+    flame_com   = aws_route53_zone.flame_com.id
+    flame_org   = aws_route53_zone.flame_org.id
+    pen_com     = aws_route53_zone.pen_com.id
+    pen_org     = aws_route53_zone.pen_org.id
+    raviqqe_com = aws_route53_zone.raviqqe_com.id
+    ytoyama_com = aws_route53_zone.ytoyama_com.id
+  }
+}
+
+resource "aws_kms_key" "dnssec" {
+  provider = aws.us_east_1
+
+  key_spec                = "ECC_NIST_P256"
+  deletion_window_in_days = 7
+  key_usage               = "SIGN_VERIFY"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "EnableIamUserPermissions"
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.id}:root"
+        }
+        Action   = "kms:*"
+        Resource = "*"
+      },
+      {
+        Sid    = "AllowRoute53Dnssec"
+        Effect = "Allow"
+        Principal = {
+          Service = "dnssec-route53.amazonaws.com"
+        }
+        Action = [
+          "kms:DescribeKey",
+          "kms:GetPublicKey",
+          "kms:Sign",
+        ]
+        Resource = "*"
+        Condition = {
+          StringEquals = {
+            "aws:SourceAccount" = data.aws_caller_identity.current.id
+          }
+        }
+      },
+    ]
+  })
+}
+
+resource "aws_route53_key_signing_key" "main" {
+  for_each = local.route53_zones
+
+  hosted_zone_id             = each.value
+  key_management_service_arn = aws_kms_key.dnssec.arn
+  name                       = each.key
+}
+
+resource "aws_route53_hosted_zone_dnssec_signing" "main" {
+  for_each = local.route53_zones
+
+  hosted_zone_id = aws_route53_key_signing_key.main[each.key].hosted_zone_id
+}
