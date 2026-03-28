@@ -15,7 +15,7 @@ terraform {
 
     github = {
       source  = "integrations/github"
-      version = "~> 5.0.0"
+      version = "~> 6.11.1"
     }
 
     google = {

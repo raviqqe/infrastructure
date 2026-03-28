@@ -180,9 +180,9 @@ locals {
 resource "aws_kms_key" "dnssec" {
   provider = aws.us_east_1
 
-  key_spec                = "ECC_NIST_P256"
-  deletion_window_in_days = 7
-  key_usage               = "SIGN_VERIFY"
+  customer_master_key_spec = "ECC_NIST_P256"
+  deletion_window_in_days  = 7
+  key_usage                = "SIGN_VERIFY"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -226,7 +226,7 @@ resource "aws_route53_key_signing_key" "main" {
   name                       = each.key
 }
 
-resource "aws_route53_hosted_zone_dnssec_signing" "main" {
+resource "aws_route53_hosted_zone_dnssec" "main" {
   for_each = local.zones
 
   hosted_zone_id = aws_route53_key_signing_key.main[each.key].hosted_zone_id
