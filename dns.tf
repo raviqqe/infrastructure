@@ -163,17 +163,17 @@ resource "aws_route53_zone" "ytoyama_com" {
 
 locals {
   zones = {
-    cloe_org    = aws_route53_zone.cloe_org.id
-    code2d_net  = aws_route53_zone.code2d_net.id
-    code2d_org  = aws_route53_zone.code2d_org.id
-    ein_com     = aws_route53_zone.ein_com.id
-    ein_org     = aws_route53_zone.ein_org.id
-    flame_com   = aws_route53_zone.flame_com.id
-    flame_org   = aws_route53_zone.flame_org.id
-    pen_com     = aws_route53_zone.pen_com.id
-    pen_org     = aws_route53_zone.pen_org.id
-    raviqqe_com = aws_route53_zone.raviqqe_com.id
-    ytoyama_com = aws_route53_zone.ytoyama_com.id
+    cloe_org    = aws_route53_zone.cloe_org.zone_id
+    code2d_net  = aws_route53_zone.code2d_net.zone_id
+    code2d_org  = aws_route53_zone.code2d_org.zone_id
+    ein_com     = aws_route53_zone.ein_com.zone_id
+    ein_org     = aws_route53_zone.ein_org.zone_id
+    flame_com   = aws_route53_zone.flame_com.zone_id
+    flame_org   = aws_route53_zone.flame_org.zone_id
+    pen_com     = aws_route53_zone.pen_com.zone_id
+    pen_org     = aws_route53_zone.pen_org.zone_id
+    raviqqe_com = aws_route53_zone.raviqqe_com.zone_id
+    ytoyama_com = aws_route53_zone.ytoyama_com.zone_id
   }
 }
 
