@@ -24,7 +24,10 @@ data "aws_iam_policy_document" "onerpc_ci" {
   statement {
     actions = ["sts:AssumeRole"]
     resources = [
-      "arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-*-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}"
+      "arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-hnb659fds-deploy-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}",
+      "arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-hnb659fds-file-publishing-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}",
+      "arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-hnb659fds-image-publishing-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}",
+      "arn:aws:iam::${data.aws_caller_identity.current.id}:role/cdk-hnb659fds-lookup-role-${data.aws_caller_identity.current.id}-${data.aws_region.current.name}",
     ]
   }
 }
