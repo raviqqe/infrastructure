@@ -17,6 +17,7 @@ resource "github_actions_secret" "hathaway_aws_cdk_role" {
   plaintext_value = aws_iam_role.hathaway_ci.arn
 }
 
+// TODO Move to the repository.
 resource "github_actions_secret" "hathaway_aws_ecr_role" {
   repository      = module.hathaway_repository.name
   secret_name     = "aws_ecr_role"
@@ -64,7 +65,7 @@ data "aws_iam_policy_document" "hathaway_ci_assume_role" {
 }
 
 resource "aws_iam_role" "hathaway_ci" {
-  name               = "hathaway_ci"
+  name               = "hathaway-ci"
   assume_role_policy = data.aws_iam_policy_document.hathaway_ci_assume_role.json
 }
 
