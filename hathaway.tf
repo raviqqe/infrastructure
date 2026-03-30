@@ -11,13 +11,14 @@ module "hathaway_repository" {
   private = true
 }
 
-resource "github_actions_secret" "hathaway_aws_cdk_role" {
+resource "github_actions_environment_secret" "hathaway_aws_cdk_role" {
   repository      = module.hathaway_repository.name
+  environment     = "release"
   secret_name     = "aws_role"
-  plaintext_value = aws_iam_role.hathaway_ci.arn
+  plaintext_value = aws_iam_role.hathaway_cdk.arn
 }
 
-data "aws_iam_policy_document" "hathaway_ci" {
+data "aws_iam_policy_document" "hathaway_cdk" {
   statement {
     actions = ["sts:AssumeRole"]
     resources = [
@@ -29,12 +30,12 @@ data "aws_iam_policy_document" "hathaway_ci" {
   }
 }
 
-resource "aws_iam_policy" "hathaway_ci" {
-  name   = "hathaway_ci"
-  policy = data.aws_iam_policy_document.hathaway_ci.json
+resource "aws_iam_policy" "hathaway_cdk" {
+  name   = "hathaway_cdk"
+  policy = data.aws_iam_policy_document.hathaway_cdk.json
 }
 
-data "aws_iam_policy_document" "hathaway_ci_assume_role" {
+data "aws_iam_policy_document" "hathaway_cdk_assume_role" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
@@ -57,12 +58,12 @@ data "aws_iam_policy_document" "hathaway_ci_assume_role" {
   }
 }
 
-resource "aws_iam_role" "hathaway_ci" {
-  name               = "hathaway-ci"
-  assume_role_policy = data.aws_iam_policy_document.hathaway_ci_assume_role.json
+resource "aws_iam_role" "hathaway_cdk" {
+  name               = "hathaway-cdk"
+  assume_role_policy = data.aws_iam_policy_document.hathaway_cdk_assume_role.json
 }
 
-resource "aws_iam_role_policy_attachment" "hathaway_ci" {
-  role       = aws_iam_role.hathaway_ci.name
-  policy_arn = aws_iam_policy.hathaway_ci.arn
+resource "aws_iam_role_policy_attachment" "hathaway_cdk" {
+  role       = aws_iam_role.hathaway_cdk.name
+  policy_arn = aws_iam_policy.hathaway_cdk.arn
 }

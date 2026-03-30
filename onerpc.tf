@@ -14,13 +14,14 @@ module "onerpc_repository" {
   private = false
 }
 
-resource "github_actions_secret" "onerpc_aws_role" {
+resource "github_actions_environment_secret" "onerpc_aws_cdk_role" {
   repository      = module.onerpc_repository.name
+  environment     = "release"
   secret_name     = "aws_role"
-  plaintext_value = aws_iam_role.onerpc_ci.arn
+  plaintext_value = aws_iam_role.onerpc_cdk.arn
 }
 
-data "aws_iam_policy_document" "onerpc_ci" {
+data "aws_iam_policy_document" "onerpc_cdk" {
   statement {
     actions = ["sts:AssumeRole"]
     resources = [
@@ -32,12 +33,12 @@ data "aws_iam_policy_document" "onerpc_ci" {
   }
 }
 
-resource "aws_iam_policy" "onerpc_ci" {
-  name   = "onerpc_ci"
-  policy = data.aws_iam_policy_document.onerpc_ci.json
+resource "aws_iam_policy" "onerpc_cdk" {
+  name   = "onerpc_cdk"
+  policy = data.aws_iam_policy_document.onerpc_cdk.json
 }
 
-data "aws_iam_policy_document" "onerpc_ci_assume_role" {
+data "aws_iam_policy_document" "onerpc_cdk_assume_role" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
@@ -60,12 +61,12 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
   }
 }
 
-resource "aws_iam_role" "onerpc_ci" {
-  name               = "onerpc-ci"
-  assume_role_policy = data.aws_iam_policy_document.onerpc_ci_assume_role.json
+resource "aws_iam_role" "onerpc_cdk" {
+  name               = "onerpc-cdk"
+  assume_role_policy = data.aws_iam_policy_document.onerpc_cdk_assume_role.json
 }
 
-resource "aws_iam_role_policy_attachment" "onerpc_ci" {
-  role       = aws_iam_role.onerpc_ci.name
-  policy_arn = aws_iam_policy.onerpc_ci.arn
+resource "aws_iam_role_policy_attachment" "onerpc_cdk" {
+  role       = aws_iam_role.onerpc_cdk.name
+  policy_arn = aws_iam_policy.onerpc_cdk.arn
 }
