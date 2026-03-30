@@ -11,10 +11,16 @@ module "hathaway_repository" {
   private = true
 }
 
-resource "github_actions_secret" "hathaway_aws_role" {
+resource "github_actions_secret" "hathaway_aws_cdk_role" {
   repository      = module.hathaway_repository.name
   secret_name     = "aws_role"
   plaintext_value = aws_iam_role.hathaway_ci.arn
+}
+
+resource "github_actions_secret" "hathaway_aws_ecr_role" {
+  repository      = module.hathaway_repository.name
+  secret_name     = "aws_ecr_role"
+  plaintext_value = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/hathaway-ecr-push"
 }
 
 data "aws_iam_policy_document" "hathaway_ci" {
