@@ -1,3 +1,8 @@
+import {
+  to = module.hathaway_repository.github_repository.repository
+  id = "hathaway"
+}
+
 module "hathaway_repository" {
   source = "./modules/github_repository"
 
