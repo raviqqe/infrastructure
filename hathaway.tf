@@ -1,26 +1,23 @@
-module "onerpc_repository" {
+import {
+  id = "hathaway"
+  to = module.hathaway_repository.github_repository.repository
+}
+
+module "hathaway_repository" {
   source = "./modules/github_repository"
 
-  name         = "oneRPC"
-  description  = "The router-less serverless RPC framework for TypeScript"
-  homepage_url = "https://raviqqe.github.io/oneRPC"
-  topics = [
-    "aws-lambda",
-    "edge-computing",
-    "nextjs",
-    "rpc",
-    "typescript",
-  ]
-  private = false
+  name    = "hathaway"
+  topics  = []
+  private = true
 }
 
-resource "github_actions_secret" "onerpc_aws_role" {
-  repository      = module.onerpc_repository.name
+resource "github_actions_secret" "hathaway_aws_role" {
+  repository      = module.hathaway_repository.name
   secret_name     = "aws_role"
-  plaintext_value = aws_iam_role.onerpc_ci.arn
+  plaintext_value = aws_iam_role.hathaway_ci.arn
 }
 
-data "aws_iam_policy_document" "onerpc_ci" {
+data "aws_iam_policy_document" "hathaway_ci" {
   statement {
     actions = ["sts:AssumeRole"]
     resources = [
@@ -32,12 +29,12 @@ data "aws_iam_policy_document" "onerpc_ci" {
   }
 }
 
-resource "aws_iam_policy" "onerpc_ci" {
-  name   = "onerpc_ci"
-  policy = data.aws_iam_policy_document.onerpc_ci.json
+resource "aws_iam_policy" "hathaway_ci" {
+  name   = "hathaway_ci"
+  policy = data.aws_iam_policy_document.hathaway_ci.json
 }
 
-data "aws_iam_policy_document" "onerpc_ci_assume_role" {
+data "aws_iam_policy_document" "hathaway_ci_assume_role" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
@@ -55,17 +52,17 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${module.onerpc_repository.full_name}:ref:refs/heads/main"]
+      values   = ["repo:${module.hathaway_repository.full_name}:ref:refs/heads/main"]
     }
   }
 }
 
-resource "aws_iam_role" "onerpc_ci" {
-  name               = "onerpc_ci"
-  assume_role_policy = data.aws_iam_policy_document.onerpc_ci_assume_role.json
+resource "aws_iam_role" "hathaway_ci" {
+  name               = "hathaway_ci"
+  assume_role_policy = data.aws_iam_policy_document.hathaway_ci_assume_role.json
 }
 
-resource "aws_iam_role_policy_attachment" "onerpc_ci" {
-  role       = aws_iam_role.onerpc_ci.name
-  policy_arn = aws_iam_policy.onerpc_ci.arn
+resource "aws_iam_role_policy_attachment" "hathaway_ci" {
+  role       = aws_iam_role.hathaway_ci.name
+  policy_arn = aws_iam_policy.hathaway_ci.arn
 }
