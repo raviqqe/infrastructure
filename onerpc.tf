@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "onerpc_ci_assume_role" {
 }
 
 resource "aws_iam_role" "onerpc_ci" {
-  name               = "onerpc_ci"
+  name               = "onerpc-ci"
   assume_role_policy = data.aws_iam_policy_document.onerpc_ci_assume_role.json
 }
 
