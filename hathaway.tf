@@ -17,13 +17,6 @@ resource "github_actions_secret" "hathaway_aws_cdk_role" {
   plaintext_value = aws_iam_role.hathaway_ci.arn
 }
 
-// TODO Move to the repository.
-resource "github_actions_secret" "hathaway_aws_ecr_role" {
-  repository      = module.hathaway_repository.name
-  secret_name     = "aws_ecr_role"
-  plaintext_value = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/hathaway-ecr-push"
-}
-
 data "aws_iam_policy_document" "hathaway_ci" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -59,7 +52,7 @@ data "aws_iam_policy_document" "hathaway_ci_assume_role" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${module.hathaway_repository.full_name}:ref:refs/heads/main"]
+      values   = ["repo:${module.hathaway_repository.full_name}:environment:release"]
     }
   }
 }
