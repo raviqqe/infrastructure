@@ -14,8 +14,9 @@ module "onerpc_repository" {
   private = false
 }
 
-resource "github_actions_secret" "onerpc_aws_role" {
+resource "github_actions_environment_secret" "onerpc_aws_role" {
   repository      = module.onerpc_repository.name
+  environment     = "release"
   secret_name     = "aws_role"
   plaintext_value = aws_iam_role.onerpc_ci.arn
 }

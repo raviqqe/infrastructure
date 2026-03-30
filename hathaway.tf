@@ -11,8 +11,9 @@ module "hathaway_repository" {
   private = true
 }
 
-resource "github_actions_secret" "hathaway_aws_cdk_role" {
+resource "github_actions_environment_secret" "hathaway_aws_cdk_role" {
   repository      = module.hathaway_repository.name
+  environment     = "release"
   secret_name     = "aws_role"
   plaintext_value = aws_iam_role.hathaway_ci.arn
 }
