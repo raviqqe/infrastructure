@@ -12,7 +12,7 @@ module "hathaway_repository" {
   private     = true
 }
 
-resource "github_actions_secret" "aws_role" {
+resource "github_actions_secret" "hathaway_aws_role" {
   repository      = module.hathaway_repository.name
   secret_name     = "aws_role"
   plaintext_value = aws_iam_role.hathaway_ci.arn
