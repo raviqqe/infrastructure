@@ -6,10 +6,9 @@ import {
 module "hathaway_repository" {
   source = "./modules/github_repository"
 
-  name        = "hathaway"
-  description = "Project Hathaway"
-  topics      = []
-  private     = true
+  name    = "hathaway"
+  topics  = []
+  private = true
 }
 
 resource "github_actions_secret" "hathaway_aws_role" {
