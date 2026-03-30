@@ -35,7 +35,7 @@ resource "aws_iam_policy" "hathaway_ci" {
   policy = data.aws_iam_policy_document.hathaway_ci.json
 }
 
-data "aws_iam_policy_document" "hathaway_ci" {
+data "aws_iam_policy_document" "hathaway_ci_assume_role" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "hathaway_ci" {
 
 resource "aws_iam_role" "hathaway_ci" {
   name               = "hathaway_ci"
-  assume_role_policy = data.aws_iam_policy_document.hathaway_ci.json
+  assume_role_policy = data.aws_iam_policy_document.hathaway_ci_assume_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "hathaway_ci" {
