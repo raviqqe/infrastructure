@@ -1,9 +1,8 @@
 module "hathaway_repository" {
   source = "./modules/github_repository"
 
-  name         = "hathaway"
-  description  = "The router-less serverless RPC framework for TypeScript"
-  homepage_url = "https://raviqqe.github.io/hathaway"
+  name        = "hathaway"
+  description = "Project Hathaway"
   topics = [
     "aws-lambda",
     "edge-computing",
