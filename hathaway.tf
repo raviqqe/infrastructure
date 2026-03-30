@@ -1,6 +1,6 @@
 import {
-  to = module.hathaway_repository.github_repository.repository
   id = "hathaway"
+  to = module.hathaway_repository.github_repository.repository
 }
 
 module "hathaway_repository" {
