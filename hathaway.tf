@@ -3,14 +3,8 @@ module "hathaway_repository" {
 
   name        = "hathaway"
   description = "Project Hathaway"
-  topics = [
-    "aws-lambda",
-    "edge-computing",
-    "nextjs",
-    "rpc",
-    "typescript",
-  ]
-  private = false
+  topics      = []
+  private     = true
 }
 
 resource "github_actions_secret" "aws_role" {
