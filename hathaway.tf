@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "hathaway_ci_assume_role" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${module.hathaway_repository.full_name}:ref:refs/heads/main"]
+      values   = ["repo:${module.hathaway_repository.full_name}:environment:release"]
     }
   }
 }
