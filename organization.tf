@@ -1,6 +1,6 @@
 resource "aws_organizations_organization" "organization" {
   feature_set                   = "ALL"
-  aws_service_access_principals = ["sso.amazonaws.com"]
+  aws_service_access_principals = ["account.amazonaws.com", "sso.amazonaws.com"]
 }
 
 resource "aws_organizations_account" "hathaway" {
