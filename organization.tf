@@ -3,8 +3,6 @@ resource "aws_organizations_organization" "organization" {
   aws_service_access_principals = ["sso.amazonaws.com"]
 }
 
-resource "aws_ssoadmin_instance" "identity_center" {}
-
 data "aws_ssoadmin_instances" "identity_center" {}
 
 resource "aws_identitystore_user" "admin" {
