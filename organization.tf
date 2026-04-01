@@ -47,35 +47,17 @@ resource "aws_ssoadmin_managed_policy_attachment" "admin" {
   managed_policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
-resource "aws_ssoadmin_account_assignment" "onerpc_admin" {
+resource "aws_ssoadmin_account_assignment" "admin" {
+  for_each = {
+    management = data.aws_caller_identity.current.account_id
+    hathaway   = aws_organizations_account.hathaway.id
+    onerpc     = aws_organizations_account.onerpc.id
+  }
+
   instance_arn       = aws_ssoadmin_permission_set.admin.instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.admin.arn
-
-  principal_id   = aws_identitystore_user.admin.user_id
-  principal_type = "USER"
-
-  target_id   = aws_organizations_account.onerpc.id
-  target_type = "AWS_ACCOUNT"
-}
-
-resource "aws_ssoadmin_account_assignment" "hathaway_admin" {
-  instance_arn       = aws_ssoadmin_permission_set.admin.instance_arn
-  permission_set_arn = aws_ssoadmin_permission_set.admin.arn
-
-  principal_id   = aws_identitystore_user.admin.user_id
-  principal_type = "USER"
-
-  target_id   = aws_organizations_account.hathaway.id
-  target_type = "AWS_ACCOUNT"
-}
-
-resource "aws_ssoadmin_account_assignment" "management_admin" {
-  instance_arn       = aws_ssoadmin_permission_set.admin.instance_arn
-  permission_set_arn = aws_ssoadmin_permission_set.admin.arn
-
-  principal_id   = aws_identitystore_user.admin.user_id
-  principal_type = "USER"
-
-  target_id   = data.aws_caller_identity.current.account_id
-  target_type = "AWS_ACCOUNT"
+  principal_id       = aws_identitystore_user.admin.user_id
+  principal_type     = "USER"
+  target_id          = each.value
+  target_type        = "AWS_ACCOUNT"
 }
