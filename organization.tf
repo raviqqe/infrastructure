@@ -1,5 +1,71 @@
 resource "aws_organizations_organization" "organization" {
-  feature_set = "ALL"
+  feature_set                   = "ALL"
+  aws_service_access_principals = ["sso.amazonaws.com"]
+}
+
+resource "aws_ssoadmin_instance" "identity_center" {}
+
+data "aws_ssoadmin_instances" "identity_center" {}
+
+resource "aws_identitystore_user" "admin" {
+  identity_store_id = tolist(data.aws_ssoadmin_instances.identity_center.identity_store_ids)[0]
+
+  display_name = "Yota Toyama"
+  user_name    = "raviqqe"
+
+  name {
+    given_name  = "Yota"
+    family_name = "Toyama"
+  }
+
+  emails {
+    value   = "raviqqe@gmail.com"
+    primary = true
+  }
+}
+
+resource "aws_ssoadmin_permission_set" "admin" {
+  instance_arn = tolist(data.aws_ssoadmin_instances.identity_center.arns)[0]
+  name         = "AdministratorAccess"
+}
+
+resource "aws_ssoadmin_managed_policy_attachment" "admin" {
+  instance_arn       = aws_ssoadmin_permission_set.admin.instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.admin.arn
+  managed_policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
+resource "aws_ssoadmin_account_assignment" "onerpc_admin" {
+  instance_arn       = aws_ssoadmin_permission_set.admin.instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.admin.arn
+
+  principal_id   = aws_identitystore_user.admin.user_id
+  principal_type = "USER"
+
+  target_id   = aws_organizations_account.onerpc.id
+  target_type = "AWS_ACCOUNT"
+}
+
+resource "aws_ssoadmin_account_assignment" "hathaway_admin" {
+  instance_arn       = aws_ssoadmin_permission_set.admin.instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.admin.arn
+
+  principal_id   = aws_identitystore_user.admin.user_id
+  principal_type = "USER"
+
+  target_id   = aws_organizations_account.hathaway.id
+  target_type = "AWS_ACCOUNT"
+}
+
+resource "aws_ssoadmin_account_assignment" "management_admin" {
+  instance_arn       = aws_ssoadmin_permission_set.admin.instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.admin.arn
+
+  principal_id   = aws_identitystore_user.admin.user_id
+  principal_type = "USER"
+
+  target_id   = data.aws_caller_identity.current.account_id
+  target_type = "AWS_ACCOUNT"
 }
 
 resource "aws_organizations_account" "onerpc" {
