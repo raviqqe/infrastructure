@@ -3,6 +3,20 @@ resource "aws_organizations_organization" "organization" {
   aws_service_access_principals = ["sso.amazonaws.com"]
 }
 
+resource "aws_organizations_account" "onerpc" {
+  name  = "onerpc"
+  email = "raviqqe+onerpc@gmail.com"
+
+  parent_id = aws_organizations_organization.organization.roots[0].id
+}
+
+resource "aws_organizations_account" "hathaway" {
+  name  = "hathaway"
+  email = "raviqqe+hathaway@gmail.com"
+
+  parent_id = aws_organizations_organization.organization.roots[0].id
+}
+
 data "aws_ssoadmin_instances" "identity_center" {}
 
 resource "aws_identitystore_user" "admin" {
@@ -64,18 +78,4 @@ resource "aws_ssoadmin_account_assignment" "management_admin" {
 
   target_id   = data.aws_caller_identity.current.account_id
   target_type = "AWS_ACCOUNT"
-}
-
-resource "aws_organizations_account" "onerpc" {
-  name  = "onerpc"
-  email = "raviqqe+onerpc@gmail.com"
-
-  parent_id = aws_organizations_organization.organization.roots[0].id
-}
-
-resource "aws_organizations_account" "hathaway" {
-  name  = "hathaway"
-  email = "raviqqe+hathaway@gmail.com"
-
-  parent_id = aws_organizations_organization.organization.roots[0].id
 }
