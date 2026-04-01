@@ -14,6 +14,13 @@ module "onerpc_repository" {
   private = false
 }
 
+resource "github_actions_environment_secret" "onerpc_aws_account_id" {
+  repository      = module.onerpc_repository.name
+  environment     = "release"
+  secret_name     = "aws_account_id"
+  plaintext_value = aws_organizations_account.onerpc.id
+}
+
 resource "github_actions_environment_secret" "onerpc_aws_cdk_role" {
   repository      = module.onerpc_repository.name
   environment     = "release"
@@ -25,10 +32,10 @@ data "aws_iam_policy_document" "onerpc_cdk" {
   statement {
     actions = ["sts:AssumeRole"]
     resources = [
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cdk-hnb659fds-deploy-role-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cdk-hnb659fds-file-publishing-role-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cdk-hnb659fds-image-publishing-role-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}",
-      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cdk-hnb659fds-lookup-role-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}",
+      "arn:aws:iam::${aws_organizations_account.onerpc.id}:role/cdk-hnb659fds-deploy-role-${aws_organizations_account.onerpc.id}-${data.aws_region.current.name}",
+      "arn:aws:iam::${aws_organizations_account.onerpc.id}:role/cdk-hnb659fds-file-publishing-role-${aws_organizations_account.onerpc.id}-${data.aws_region.current.name}",
+      "arn:aws:iam::${aws_organizations_account.onerpc.id}:role/cdk-hnb659fds-image-publishing-role-${aws_organizations_account.onerpc.id}-${data.aws_region.current.name}",
+      "arn:aws:iam::${aws_organizations_account.onerpc.id}:role/cdk-hnb659fds-lookup-role-${aws_organizations_account.onerpc.id}-${data.aws_region.current.name}",
     ]
   }
 }
