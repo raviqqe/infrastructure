@@ -3,16 +3,16 @@ resource "aws_organizations_organization" "organization" {
   aws_service_access_principals = ["sso.amazonaws.com"]
 }
 
-resource "aws_organizations_account" "onerpc" {
-  name  = "onerpc"
-  email = "raviqqe+onerpc@gmail.com"
+resource "aws_organizations_account" "hathaway" {
+  name  = "hathaway"
+  email = "raviqqe+hathaway@gmail.com"
 
   parent_id = aws_organizations_organization.organization.roots[0].id
 }
 
-resource "aws_organizations_account" "hathaway" {
-  name  = "hathaway"
-  email = "raviqqe+hathaway@gmail.com"
+resource "aws_organizations_account" "onerpc" {
+  name  = "onerpc"
+  email = "raviqqe+onerpc@gmail.com"
 
   parent_id = aws_organizations_organization.organization.roots[0].id
 }
