@@ -4,12 +4,15 @@
     "coldline",
     "dnssec",
     "hathaway",
+    "identitystore",
     "nextjs",
     "onerpc",
     "pomodoro",
     "preemptible",
     "raviqqe",
+    "ssoadmin",
     "vercel",
+    "yota",
     "ytoyama"
   ]
 }
