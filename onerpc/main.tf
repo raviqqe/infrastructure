@@ -30,43 +30,11 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-resource "aws_iam_openid_connect_provider" "terraform" {
-  url             = "https://app.terraform.io"
-  client_id_list  = ["aws.workload.identity"]
-  thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0ab7280"]
-}
+module "terraform_oidc" {
+  source = "../modules/terraform_oidc"
 
-data "aws_iam_policy_document" "terraform_assume_role" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-
-    principals {
-      type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.terraform.arn]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "app.terraform.io:aud"
-      values   = ["aws.workload.identity"]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "app.terraform.io:sub"
-      values   = ["organization:raviqqe:project:*:workspace:onerpc:run_phase:*"]
-    }
-  }
-}
-
-resource "aws_iam_role" "terraform" {
-  name               = "terraform"
-  assume_role_policy = data.aws_iam_policy_document.terraform_assume_role.json
-}
-
-resource "aws_iam_role_policy_attachment" "terraform" {
-  role       = aws_iam_role.terraform.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+  organization = "raviqqe"
+  workspace    = "onerpc"
 }
 
 resource "aws_iam_openid_connect_provider" "github" {
