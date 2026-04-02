@@ -34,6 +34,7 @@ module "terraform_oidc" {
   source = "../modules/terraform_oidc"
 
   organization = "raviqqe"
+  project      = "onerpc"
   workspace    = "onerpc"
 }
 

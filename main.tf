@@ -41,3 +41,11 @@ provider "google" {
 }
 
 provider "github" {}
+
+module "terraform_oidc" {
+  source = "./modules/terraform_oidc"
+
+  organization = "raviqqe"
+  project      = "main"
+  workspace    = "main"
+}
