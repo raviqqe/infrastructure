@@ -12,36 +12,3 @@ resource "aws_iam_openid_connect_provider" "terraform" {
   client_id_list  = ["aws.workload.identity"]
   thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da2b0ab7280"]
 }
-
-data "aws_iam_policy_document" "assume_role" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-
-    principals {
-      type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.terraform.arn]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "app.terraform.io:aud"
-      values   = ["aws.workload.identity"]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "app.terraform.io:sub"
-      values   = ["organization:${var.organization}:project:${var.project}:workspace:${var.workspace}:run_phase:*"]
-    }
-  }
-}
-
-resource "aws_iam_role" "terraform" {
-  name               = "terraform"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
-}
-
-resource "aws_iam_role_policy_attachment" "terraform" {
-  role       = aws_iam_role.terraform.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-}
