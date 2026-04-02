@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "assume_role" {
     condition {
       test     = "StringLike"
       variable = "app.terraform.io:sub"
-      values   = ["organization:${var.organization}:project:*:workspace:${var.workspace}:run_phase:*"]
+      values   = ["organization:${var.organization}:project:${var.project}:workspace:${var.workspace}:run_phase:*"]
     }
   }
 }
