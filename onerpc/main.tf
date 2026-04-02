@@ -58,6 +58,6 @@ module "terraform_oidc" {
 module "github_oidc" {
   source = "../modules/github_oidc"
 
-  owner      = "raviqqe"
+  owner      = module.repository.owner
   repository = module.repository.name
 }
