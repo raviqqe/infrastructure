@@ -47,5 +47,5 @@ module "terraform_oidc" {
 
   organization = "raviqqe"
   project      = "main"
-  workspace    = "infrastructure"
+  workspace    = "main"
 }
