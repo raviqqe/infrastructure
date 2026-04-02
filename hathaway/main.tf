@@ -26,21 +26,6 @@ provider "aws" {
 
 provider "github" {}
 
-module "terraform_oidc" {
-  source = "../modules/terraform_oidc"
-
-  organization = "raviqqe"
-  project      = "hathaway"
-  workspace    = "hathaway"
-}
-
-module "github_oidc" {
-  source = "../modules/github_oidc"
-
-  owner      = "raviqqe"
-  repository = "hathaway"
-}
-
 import {
   id = "hathaway"
   to = module.repository.github_repository.repository
@@ -52,4 +37,19 @@ module "repository" {
   name    = "hathaway"
   topics  = []
   private = true
+}
+
+module "terraform_oidc" {
+  source = "../modules/terraform_oidc"
+
+  organization = "raviqqe"
+  project      = "hathaway"
+  workspace    = "hathaway"
+}
+
+module "github_oidc" {
+  source = "../modules/github_oidc"
+
+  owner      = module.repository.owner
+  repository = module.repository.name
 }
