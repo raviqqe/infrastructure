@@ -1,12 +1,7 @@
-import {
-  id = "hathaway"
-  to = module.hathaway_repository.github_repository.repository
-}
+removed {
+  from = module.hathaway_repository
 
-module "hathaway_repository" {
-  source = "./modules/github_repository"
-
-  name    = "hathaway"
-  topics  = []
-  private = true
+  lifecycle {
+    destroy = false
+  }
 }

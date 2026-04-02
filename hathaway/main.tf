@@ -40,3 +40,16 @@ module "github_oidc" {
   owner      = "raviqqe"
   repository = "hathaway"
 }
+
+import {
+  id = "hathaway"
+  to = module.repository.github_repository.repository
+}
+
+module "repository" {
+  source = "../modules/github_repository"
+
+  name    = "hathaway"
+  topics  = []
+  private = true
+}
