@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "assume_role" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.owner}/${var.repository}:environment:release"]
+      values   = ["repo:${var.owner}/${var.repository}:ref:refs/heads/main"]
     }
   }
 }
