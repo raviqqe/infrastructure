@@ -26,11 +26,6 @@ provider "aws" {
 
 provider "github" {}
 
-import {
-  id = "hathaway"
-  to = module.repository.github_repository.repository
-}
-
 module "repository" {
   source = "../modules/github_repository"
 
