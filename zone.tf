@@ -212,6 +212,21 @@ resource "aws_route53_hosted_zone_dnssec" "main" {
   hosted_zone_id = aws_route53_key_signing_key.main[each.key].hosted_zone_id
 }
 
+import {
+  for_each = local.zones
+
+  to = aws_route53domains_delegation_signer_record.main[each.key]
+  id = join(",", [
+    each.value.name,
+    join("-", [
+      aws_route53_key_signing_key.main[each.key].flag,
+      3,
+      aws_route53_key_signing_key.main[each.key].signing_algorithm_type,
+      aws_route53_key_signing_key.main[each.key].public_key,
+    ]),
+  ])
+}
+
 resource "aws_route53domains_delegation_signer_record" "main" {
   for_each = local.zones
 
@@ -224,4 +239,8 @@ resource "aws_route53domains_delegation_signer_record" "main" {
   }
 
   depends_on = [aws_route53_hosted_zone_dnssec.main]
+
+  lifecycle {
+    ignore_changes = [signing_attributes]
+  }
 }
