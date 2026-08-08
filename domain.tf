@@ -1,7 +1,6 @@
 locals {
   // cspell: ignore infini infinidict
   domains = [
-    "cloe-lang.com",
     "cloe-lang.org",
     "code2d.net",
     "code2d.org",
