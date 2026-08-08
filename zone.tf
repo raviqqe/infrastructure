@@ -143,17 +143,17 @@ resource "aws_route53_zone" "ytoyama_com" {
 
 locals {
   zones = {
-    cloe_org    = aws_route53_zone.cloe_org.zone_id
-    code2d_net  = aws_route53_zone.code2d_net.zone_id
-    code2d_org  = aws_route53_zone.code2d_org.zone_id
-    ein_com     = aws_route53_zone.ein_com.zone_id
-    ein_org     = aws_route53_zone.ein_org.zone_id
-    flame_com   = aws_route53_zone.flame_com.zone_id
-    flame_org   = aws_route53_zone.flame_org.zone_id
-    pen_com     = aws_route53_zone.pen_com.zone_id
-    pen_org     = aws_route53_zone.pen_org.zone_id
-    raviqqe_com = aws_route53_zone.raviqqe_com.zone_id
-    ytoyama_com = aws_route53_zone.ytoyama_com.zone_id
+    cloe_org    = aws_route53_zone.cloe_org
+    code2d_net  = aws_route53_zone.code2d_net
+    code2d_org  = aws_route53_zone.code2d_org
+    ein_com     = aws_route53_zone.ein_com
+    ein_org     = aws_route53_zone.ein_org
+    flame_com   = aws_route53_zone.flame_com
+    flame_org   = aws_route53_zone.flame_org
+    pen_com     = aws_route53_zone.pen_com
+    pen_org     = aws_route53_zone.pen_org
+    raviqqe_com = aws_route53_zone.raviqqe_com
+    ytoyama_com = aws_route53_zone.ytoyama_com
   }
 }
 
@@ -201,7 +201,7 @@ resource "aws_kms_key" "dnssec" {
 resource "aws_route53_key_signing_key" "main" {
   for_each = local.zones
 
-  hosted_zone_id             = each.value
+  hosted_zone_id             = each.value.zone_id
   key_management_service_arn = aws_kms_key.dnssec.arn
   name                       = each.key
 }
@@ -210,4 +210,18 @@ resource "aws_route53_hosted_zone_dnssec" "main" {
   for_each = local.zones
 
   hosted_zone_id = aws_route53_key_signing_key.main[each.key].hosted_zone_id
+}
+
+resource "aws_route53domains_delegation_signer_record" "main" {
+  for_each = local.zones
+
+  domain_name = each.value.name
+
+  signing_attributes {
+    algorithm  = aws_route53_key_signing_key.main[each.key].signing_algorithm_type
+    flags      = aws_route53_key_signing_key.main[each.key].flag
+    public_key = aws_route53_key_signing_key.main[each.key].public_key
+  }
+
+  depends_on = [aws_route53_hosted_zone_dnssec.main]
 }
