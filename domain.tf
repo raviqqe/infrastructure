@@ -19,13 +19,6 @@ locals {
   }
 }
 
-import {
-  for_each = local.domain_transfer_locks
-
-  to = aws_route53domains_registered_domain.main[each.key]
-  id = each.key
-}
-
 resource "aws_route53domains_registered_domain" "main" {
   for_each = local.domain_transfer_locks
 
