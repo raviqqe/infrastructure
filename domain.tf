@@ -1,4 +1,5 @@
 locals {
+  // cspell: ignore infini infinidict
   domain_transfer_locks = {
     "cloe-lang.com"           = true
     "cloe-lang.org"           = true
