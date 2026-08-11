@@ -20,7 +20,7 @@ terraform {
 
     google = {
       source  = "google"
-      version = ">= 6.3.0"
+      version = ">= 7.43.0"
     }
   }
 }
