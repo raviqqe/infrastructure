@@ -10,17 +10,17 @@ terraform {
   required_providers {
     aws = {
       source  = "aws"
-      version = "~> 6.58.0"
+      version = "~> 6.58"
     }
 
     github = {
       source  = "integrations/github"
-      version = "~> 6.11.1"
+      version = "~> 6.11"
     }
 
     google = {
       source  = "google"
-      version = "~> 7.43.0"
+      version = "~> 7.43"
     }
   }
 }
