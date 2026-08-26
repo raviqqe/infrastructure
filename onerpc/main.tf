@@ -29,9 +29,9 @@ provider "github" {}
 module "repository" {
   source = "../modules/github_repository"
 
-  name         = "oneRPC"
+  name         = "onerpc"
   description  = "The router-less serverless RPC framework for TypeScript"
-  homepage_url = "https://raviqqe.github.io/oneRPC"
+  homepage_url = "https://raviqqe.github.io/onerpc"
   topics = [
     "aws-lambda",
     "edge-computing",
