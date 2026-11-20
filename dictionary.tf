@@ -7,11 +7,6 @@ module "dictionary_repository" {
   private      = true
 }
 
-import {
-  to = github_repository_pages.dictionary
-  id = "dictionary"
-}
-
 resource "github_repository_pages" "dictionary" {
   repository = module.dictionary_repository.name
   build_type = "workflow"
