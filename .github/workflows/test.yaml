@@ -15,8 +15,8 @@ jobs:
       - run: terraform validate
       - run: terraform -chdir=onerpc init -backend=false
       - run: terraform -chdir=onerpc validate
-      - run: terraform -chdir=hathaway init -backend=false
-      - run: terraform -chdir=hathaway validate
+      - run: terraform -chdir=mafty init -backend=false
+      - run: terraform -chdir=mafty validate
   spell_check:
     runs-on: ubuntu-latest
     steps:
