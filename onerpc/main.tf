@@ -28,11 +28,6 @@ provider "aws" {
 
 provider "github" {}
 
-import {
-  to = module.repository.github_repository_pages.repository
-  id = "onerpc"
-}
-
 module "repository" {
   source = "../modules/github_repository"
 
@@ -47,6 +42,16 @@ module "repository" {
     "typescript",
   ]
   private = false
+}
+
+import {
+  to = github_repository_pages.repository
+  id = "onerpc"
+}
+
+resource "github_repository_pages" "repository" {
+  repository = module.repository.name
+  build_type = "workflow"
 }
 
 module "terraform_oidc" {

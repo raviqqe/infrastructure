@@ -28,17 +28,22 @@ provider "aws" {
 
 provider "github" {}
 
-import {
-  to = module.repository.github_repository_pages.repository
-  id = "mafty"
-}
-
 module "repository" {
   source = "../modules/github_repository"
 
   name    = "mafty"
   topics  = []
   private = true
+}
+
+import {
+  to = github_repository_pages.repository
+  id = "mafty"
+}
+
+resource "github_repository_pages" "repository" {
+  repository = module.repository.name
+  build_type = "workflow"
 }
 
 module "terraform_oidc" {

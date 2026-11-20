@@ -33,11 +33,6 @@ resource "github_repository" "repository" {
   }
 }
 
-resource "github_repository_pages" "repository" {
-  repository = github_repository.repository.name
-  build_type = "workflow"
-}
-
 resource "github_repository_vulnerability_alerts" "repository" {
   repository = github_repository.repository.name
 }
