@@ -29,6 +29,7 @@ resource "github_repository" "repository" {
   squash_merge_commit_title   = "PR_TITLE"
 
   lifecycle {
+    # TODO Remove this when the GitHub provider removes the deprecated argument.
     ignore_changes = [pages]
   }
 }
