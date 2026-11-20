@@ -36,11 +36,6 @@ module "repository" {
   private = true
 }
 
-import {
-  to = github_repository_pages.repository
-  id = "mafty"
-}
-
 resource "github_repository_pages" "repository" {
   repository = module.repository.name
   build_type = "workflow"

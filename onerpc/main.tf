@@ -44,11 +44,6 @@ module "repository" {
   private = false
 }
 
-import {
-  to = github_repository_pages.repository
-  id = "onerpc"
-}
-
 resource "github_repository_pages" "repository" {
   repository = module.repository.name
   build_type = "workflow"
