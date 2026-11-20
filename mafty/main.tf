@@ -45,7 +45,7 @@ module "terraform_oidc" {
   source = "../modules/terraform_oidc"
 
   organization = "raviqqe"
-  project      = "hathaway"
+  project      = "mafty"
   workspace    = "mafty"
 }
 
