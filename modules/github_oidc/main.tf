@@ -16,6 +16,10 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
+data "github_user" "owner" {
+  username = var.owner
+}
+
 resource "aws_iam_openid_connect_provider" "github" {
   url             = "https://token.actions.githubusercontent.com"
   client_id_list  = ["sts.amazonaws.com"]
@@ -40,7 +44,7 @@ data "aws_iam_policy_document" "assume_role" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.owner}/${var.repository}:environment:release"]
+      values   = ["repo:${var.owner}@${data.github_user.owner.id}/${var.repository}@${var.repository_id}:environment:release"]
     }
   }
 }
