@@ -17,7 +17,7 @@ terraform {
 
     github = {
       source  = "integrations/github"
-      version = "~> 6.11"
+      version = "~> 6.13"
     }
   }
 }
@@ -42,6 +42,16 @@ module "repository" {
     "typescript",
   ]
   private = false
+}
+
+import {
+  to = github_repository_pages.repository
+  id = "onerpc"
+}
+
+resource "github_repository_pages" "repository" {
+  repository = module.repository.name
+  build_type = "workflow"
 }
 
 module "terraform_oidc" {

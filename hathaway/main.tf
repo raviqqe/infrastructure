@@ -17,7 +17,7 @@ terraform {
 
     github = {
       source  = "integrations/github"
-      version = "~> 6.11"
+      version = "~> 6.13"
     }
   }
 }
@@ -34,6 +34,16 @@ module "repository" {
   name    = "mafty"
   topics  = []
   private = true
+}
+
+import {
+  to = github_repository_pages.repository
+  id = "mafty"
+}
+
+resource "github_repository_pages" "repository" {
+  repository = module.repository.name
+  build_type = "workflow"
 }
 
 module "terraform_oidc" {
