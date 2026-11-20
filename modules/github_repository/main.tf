@@ -23,14 +23,17 @@ resource "github_repository" "repository" {
   has_issues                  = true
   has_projects                = true
   has_wiki                    = true
-  merge_commit_message        = "PR_BODY"
-  merge_commit_title          = "PR_TITLE"
   squash_merge_commit_message = "PR_BODY"
   squash_merge_commit_title   = "PR_TITLE"
 
   lifecycle {
-    # TODO Remove this when the GitHub provider removes the deprecated argument.
-    ignore_changes = [pages]
+    ignore_changes = [
+      # The GitHub provider sets these only when merge commits are allowed.
+      merge_commit_message,
+      merge_commit_title,
+      # TODO Remove this when the GitHub provider removes the deprecated argument.
+      pages,
+    ]
   }
 }
 
