@@ -31,7 +31,7 @@ provider "github" {}
 module "repository" {
   source = "../modules/github_repository"
 
-  name    = "hathaway"
+  name    = "mafty"
   topics  = []
   private = true
 }
