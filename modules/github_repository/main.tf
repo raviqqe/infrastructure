@@ -27,13 +27,8 @@ resource "github_repository" "repository" {
   squash_merge_commit_title   = "PR_TITLE"
 
   lifecycle {
-    ignore_changes = [
-      # The GitHub provider sets these only when merge commits are allowed.
-      merge_commit_message,
-      merge_commit_title,
-      # TODO Remove this when the GitHub provider removes the deprecated argument.
-      pages,
-    ]
+    # TODO Remove this when the GitHub provider removes the deprecated argument.
+    ignore_changes = [pages]
   }
 }
 
