@@ -5,7 +5,7 @@ terraform {
     organization = "raviqqe"
 
     workspaces {
-      name = "hathaway"
+      name = "mafty"
     }
   }
 
@@ -46,7 +46,7 @@ module "terraform_oidc" {
 
   organization = "raviqqe"
   project      = "hathaway"
-  workspace    = "hathaway"
+  workspace    = "mafty"
 }
 
 module "github_oidc" {
