@@ -3,11 +3,6 @@ resource "aws_organizations_organization" "organization" {
   aws_service_access_principals = ["account.amazonaws.com", "sso.amazonaws.com"]
 }
 
-moved {
-  from = aws_organizations_account.hathaway
-  to   = aws_organizations_account.mafty
-}
-
 resource "aws_organizations_account" "mafty" {
   name  = "mafty"
   email = "raviqqe+hathaway@gmail.com"
@@ -50,11 +45,6 @@ resource "aws_ssoadmin_managed_policy_attachment" "admin" {
   instance_arn       = aws_ssoadmin_permission_set.admin.instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.admin.arn
   managed_policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-}
-
-moved {
-  from = aws_ssoadmin_account_assignment.admin["hathaway"]
-  to   = aws_ssoadmin_account_assignment.admin["mafty"]
 }
 
 resource "aws_ssoadmin_account_assignment" "admin" {
