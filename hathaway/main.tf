@@ -17,7 +17,7 @@ terraform {
 
     github = {
       source  = "integrations/github"
-      version = "~> 6.11"
+      version = "~> 6.13"
     }
   }
 }
@@ -27,6 +27,11 @@ provider "aws" {
 }
 
 provider "github" {}
+
+import {
+  to = module.repository.github_repository_pages.repository
+  id = "mafty"
+}
 
 module "repository" {
   source = "../modules/github_repository"

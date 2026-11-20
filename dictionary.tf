@@ -1,3 +1,8 @@
+import {
+  to = module.dictionary_repository.github_repository_pages.repository
+  id = "dictionary"
+}
+
 module "dictionary_repository" {
   source = "./modules/github_repository"
 

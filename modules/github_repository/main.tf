@@ -2,7 +2,7 @@ terraform {
   required_providers {
     github = {
       source  = "integrations/github"
-      version = "~> 6.11"
+      version = "~> 6.13"
     }
   }
 }
@@ -27,9 +27,17 @@ resource "github_repository" "repository" {
   merge_commit_title          = "PR_TITLE"
   squash_merge_commit_message = "PR_BODY"
   squash_merge_commit_title   = "PR_TITLE"
-  vulnerability_alerts        = true
 
-  pages {
-    build_type = "workflow"
+  lifecycle {
+    ignore_changes = [pages]
   }
+}
+
+resource "github_repository_pages" "repository" {
+  repository = github_repository.repository.name
+  build_type = "workflow"
+}
+
+resource "github_repository_vulnerability_alerts" "repository" {
+  repository = github_repository.repository.name
 }
