@@ -23,8 +23,6 @@ resource "github_repository" "repository" {
   has_issues                  = true
   has_projects                = true
   has_wiki                    = true
-  merge_commit_message        = "PR_BODY"
-  merge_commit_title          = "PR_TITLE"
   squash_merge_commit_message = "PR_BODY"
   squash_merge_commit_title   = "PR_TITLE"
 
