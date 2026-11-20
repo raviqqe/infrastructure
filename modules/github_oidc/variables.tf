@@ -7,6 +7,5 @@ variable "repository" {
 }
 
 variable "repository_id" {
-  type    = number
-  default = null
+  type = number
 }

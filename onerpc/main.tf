@@ -55,6 +55,7 @@ module "terraform_oidc" {
 module "github_oidc" {
   source = "../modules/github_oidc"
 
-  owner      = module.repository.owner
-  repository = module.repository.name
+  owner         = module.repository.owner
+  repository    = module.repository.name
+  repository_id = module.repository.repo_id
 }
